@@ -15,8 +15,10 @@ jobs:
         with:
           paper: tests/tex/*.tex
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          output-folder: tests/texgroup
 
       - uses: ./actions/latex
         with:
           paper: tests/tex/Hydra.tex
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          output-folder: tests/texsingle
