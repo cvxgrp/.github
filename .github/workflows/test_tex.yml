@@ -11,12 +11,12 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v3
       
-      - uses: actions/latex
+      - uses: ./actions/latex
         with:
           paper: tests/tex/*.tex
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/latex
+      - uses: ./actions/latex
         with:
           paper: tests/tex/Hydra.tex
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
