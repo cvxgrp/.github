@@ -37,9 +37,11 @@ runs:
           RUST_BACKTRACE: '1'
         run: |
           mkdir -p publish
+          echo "Compiling ${{ inputs.paper }}"
           for f in ${{ inputs.paper }}
           do
-            tectonic --outdir publish $f
+            echo "-- Compiling $f"
+            tectonic $f --outdir publish
           done
 
           
