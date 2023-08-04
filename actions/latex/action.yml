@@ -37,7 +37,11 @@ runs:
           RUST_BACKTRACE: '1'
         run: |
           mkdir -p publish
-          tectonic --outdir publish ${{ inputs.paper }}
+          for f in ${{ inputs.paper }}
+          do
+            tectonic --outdir publish $f
+          done
+
           
       # Push the paper folder to the draft branch
       - name: GitHub Pages action
