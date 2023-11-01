@@ -32,6 +32,12 @@ on:
         required: false
         default: ''
 
+      draft:
+        description: 'draft'
+        type: string
+        required: false
+        default: 'draft'
+        
 runs:
   using: "composite"
   steps:
@@ -71,7 +77,7 @@ runs:
       - name: GitHub Pages action
         uses: JamesIves/github-pages-deploy-action@v4.2.2
         with:
-          branch: draft${{ inputs.output-folder }} # The branch the action should deploy to.
+          branch: ${{ inputs.draft }} # The branch the action should deploy to.
           folder: publish${{ inputs.output-folder }}  # The folder the action should deploy.
 
       # To make your draft folder public you would have to go to Settings => Pages
