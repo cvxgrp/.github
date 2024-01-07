@@ -11,3 +11,49 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
+name: Build pdoc documentation
+
+description: "Build pdoc documentation"
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: 'Python version'
+        type: string
+        required: false
+        default: '3.10'
+      source-folder:
+        description: 'Source folder'
+        type: string
+        required: false
+        default: 'cvx'
+      pdoc-arguments:
+        description: 'pdoc arguments'
+        type: string
+        required: false
+        default: ''
+runs:
+  using: "composite"
+
+  steps:
+      - uses: cvxgrp/.github/actions/setup-environment@main
+        with:
+          python-version: ${{ inputs.python-version || '3.10' }}
+
+      - name: Install pdoc
+        shell: bash
+        run: |
+          poetry run pip install --no-cache-dir pdoc==14.3.0
+
+      - name: Build pdoc
+        shell: bash
+        run: |
+          poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
+
+      - name: Archive sphinx documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: pdoc
+          path: artifacts/pdoc
+          retention-days: 1
