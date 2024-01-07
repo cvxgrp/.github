@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "cvx.dog"
+description = "..."
+version = "0.0.0"
+authors = ["Thomas Schmelzer"]
+readme = "README.md"
+repository = "https://github.com/cvxgrp/.github"
+packages = [{include = "cvx"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+pre-commit = "*"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry>=1.5.0"]
+build-backend = "poetry.masonry.api"
