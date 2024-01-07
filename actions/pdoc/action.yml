@@ -44,12 +44,12 @@ runs:
       - name: Install pdoc
         shell: bash
         run: |
-          poetry run pip install --no-cache-dir pdoc==14.3.0
+          pip install --no-cache-dir pdoc==14.3.0
 
       - name: Build pdoc
         shell: bash
         run: |
-          poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
+          pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
 
       - name: Archive sphinx documentation
         uses: actions/upload-artifact@v3
