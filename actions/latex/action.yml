@@ -75,7 +75,7 @@ runs:
 
       # Push the paper folder to the draft branch
       - name: GitHub Pages action
-        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: ${{ inputs.draft || 'draft' }}      # The branch the action should deploy to.
           folder: publish${{ inputs.output-folder }}  # The folder the action should deploy.
