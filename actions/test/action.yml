@@ -75,7 +75,7 @@ runs:
 
       - name: Archive tests results
         if: ${{ runner.os == 'Linux' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tests
           path: artifacts/tests
