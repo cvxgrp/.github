@@ -52,7 +52,7 @@ runs:
           poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
 
       - name: Archive sphinx documentation
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pdoc
           path: artifacts/pdoc
