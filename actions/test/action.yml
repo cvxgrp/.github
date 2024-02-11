@@ -79,4 +79,5 @@ runs:
         with:
           name: tests
           path: artifacts/tests
+          merge-multiple: true
           retention-days: 1
