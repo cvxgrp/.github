@@ -15,6 +15,9 @@ name: Compile a LaTeX document
 
 description: "Compile a LaTeX document and upload it"
 
+permissions:
+  contents: write
+
 on:
   workflow_call:
     inputs:
