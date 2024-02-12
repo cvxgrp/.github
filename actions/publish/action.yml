@@ -30,7 +30,7 @@ runs:
     # Generate the token
     - name: Mint token
       id: mint
-      uses: tschm/token-mint-action@v1.0.2
+      uses: tschm/token-mint-action@v1.0.3
 
     # Install twine and upload the dist folder using the token
     - name: Publish the package
