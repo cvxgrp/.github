@@ -40,7 +40,7 @@ runs:
 
     - name: Mint token
       id: mint
-      uses: tschm/token-mint-action@v1.0.2
+      uses: tschm/token-mint-action@v1.0.3
 
     - name: Publish the package with poetry
       shell: bash
