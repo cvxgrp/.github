@@ -1,0 +1,5 @@
+    before_script:
+        - poetry run pip install deptry
+
+    script:
+        - poetry run deptry $SOURCE_DIRS
