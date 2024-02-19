@@ -9,7 +9,7 @@ jobs:
 
     permissions:
       contents: write
-  
+
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
