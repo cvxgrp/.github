@@ -1,1 +1,16 @@
+name: Analyse with deptry
 
+on:
+  [push]
+
+jobs:
+  build_paper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - uses: ./actions/deptry
+        with:
+          source-folder: "cvx"
