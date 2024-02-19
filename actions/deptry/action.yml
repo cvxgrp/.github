@@ -36,5 +36,13 @@ runs:
         with:
           python-version: ${{ inputs.python-version || '3.10' }}
 
-      - name: Install deptry
-        
+      - name: Install pytest
+        shell: bash
+        run: |
+            poetry run pip install --no-cache-dir \
+                       deptry
+
+      - name: Run tests
+        shell: bash
+        run : |
+          poetry run deptry ${{ inputs.source-folder || 'cvx' }}
