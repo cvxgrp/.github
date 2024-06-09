@@ -18,11 +18,6 @@ description: "Analyse docstrings"
 on:
   workflow_call:
     inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.11'
       source-folder:
         description: 'Source folder'
         type: string
@@ -33,8 +28,6 @@ runs:
   using: "composite"
   steps:
       - uses: cvxgrp/.github/actions/setup-environment@main
-        with:
-          python-version: ${{ inputs.python-version || '3.11' }}
 
       - name: Install pytest
         shell: bash

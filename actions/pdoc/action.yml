@@ -18,11 +18,6 @@ description: "Build pdoc documentation"
 on:
   workflow_call:
     inputs:
-      #python-version:
-      #  description: 'Python version'
-      #  type: string
-      #  required: false
-      #  default: '3.11'
       source-folder:
         description: 'Source folder'
         type: string
@@ -38,8 +33,6 @@ runs:
 
   steps:
       - uses: cvxgrp/.github/actions/setup-environment@main
-        #with:
-        #  python-version: ${{ inputs.python-version || '3.10' }}
 
       - name: Install pdoc
         shell: bash

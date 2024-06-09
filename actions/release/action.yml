@@ -15,22 +15,11 @@ name: Release
 
 description: "Release with poetry"
 
-on:
-  workflow_call:
-    inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.11'
-
 runs:
   using: "composite"
 
   steps:
     - uses: cvxgrp/.github/actions/setup-environment@main
-      with:
-        python-version: "${{ inputs.python-version || '3.11' }}"
 
     - name: Change version in pyproject.toml
       shell: bash

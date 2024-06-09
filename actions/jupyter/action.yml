@@ -18,11 +18,6 @@ description: "Build jupyter book"
 on:
   workflow_call:
     inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.11'
       kernel:
         description: 'Jupyter kernel'
         type: string
@@ -37,8 +32,6 @@ runs:
       #  uses: actions/checkout@v4
 
       - uses: cvxgrp/.github/actions/setup-environment@main
-        with:
-          python-version: ${{ inputs.python-version || '3.11' }}
 
       - name: Install jupyterbook
         shell: bash

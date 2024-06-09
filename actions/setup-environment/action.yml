@@ -34,7 +34,7 @@ runs:
       uses: actions/setup-python@v5
       with:
         # Why is this not automatically happen?
-        python-version: ${{ inputs.python-version || '3.10' }}
+        python-version: ${{ inputs.python-version || '3.11' }}
 
     - name: Install Poetry
       uses: snok/install-poetry@v1

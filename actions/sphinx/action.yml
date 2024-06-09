@@ -18,11 +18,6 @@ description: "Build sphinx documentation"
 on:
   workflow_call:
     inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.10'
       sphinx-folder:
         description: 'Sphinx folder'
         type: string
@@ -34,8 +29,6 @@ runs:
 
   steps:
       - uses: cvxgrp/.github/actions/setup-environment@main
-        with:
-          python-version: ${{ inputs.python-version || '3.10' }}
 
       - name: Install sphinx
         shell: bash
