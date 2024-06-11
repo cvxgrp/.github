@@ -64,9 +64,9 @@ runs:
         mkdir -p artifacts/build
         poetry show --only main --tree > artifacts/build/show.txt
 
-    - name: Archive Documentation
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-${{ runner.os }}-${{ inputs.python-version }}
-        path: artifacts/build
-        retention-days: 1
+    # - name: Archive Documentation
+    #  uses: actions/upload-artifact@v4
+    #  with:
+    #    name: build-${{ runner.os }}-${{ inputs.python-version }}
+    #    path: artifacts/build
+    #    retention-days: 1
