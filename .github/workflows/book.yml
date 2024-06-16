@@ -1,9 +1,10 @@
-name: "book"
+name: "Build book"
 
 on:
-  push:
-    branches:
-      - main
+  push
+    #:
+    #branches:
+    #  - main
 
 
 jobs:
