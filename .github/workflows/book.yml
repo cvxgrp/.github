@@ -18,13 +18,13 @@ jobs:
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
-      #- uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - uses: ./actions/pdoc
 
   test:
     runs-on: "ubuntu-latest"
     steps:
-      #- uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - uses: ./actions/coverage
 
   jupyter:
