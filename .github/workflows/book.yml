@@ -14,17 +14,17 @@ jobs:
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/pdoc
+      - uses: ./actions/pdoc
 
   test:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/coverage
+      - uses: ./actions/coverage
 
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/jupyter
+      - uses: ./actions/jupyter
 
   book:
     runs-on: "ubuntu-latest"
@@ -34,4 +34,4 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/book
+      - uses: ./actions/book
