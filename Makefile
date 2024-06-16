@@ -26,6 +26,7 @@ build: install ## Build the book
 .PHONY: clean
 clean:  ## Clean up caches and build artifacts
 	@git clean -X -d -f
+	@git branch -v | grep "\[gone\]" | cut -f 3 -d ' ' | xargs git branch -D
 
 
 .PHONY: help
