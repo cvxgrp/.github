@@ -27,6 +27,8 @@ on:
 runs:
   using: "composite"
   steps:
+      - uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/setup-environment@main
         with:
           python-version: ${{ inputs.python-version || '3.11' }}
