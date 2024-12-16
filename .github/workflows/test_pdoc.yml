@@ -11,6 +11,6 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
-      - uses: ./actions/pdoc
+      - uses: ./actions/uv/pdoc
         with:
           source-folder: "cvx"

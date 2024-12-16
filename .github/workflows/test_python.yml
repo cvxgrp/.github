@@ -18,7 +18,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
-      - uses: ./actions/test
+      - uses: ./actions/uv/test
         with:
           python-version: ${{ matrix.python-version }}
           #source-folder: "tests/python"
