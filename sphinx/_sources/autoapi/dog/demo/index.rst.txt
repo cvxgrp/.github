@@ -1,0 +1,45 @@
+dog.demo
+========
+
+.. py:module:: dog.demo
+
+.. autoapi-nested-parse::
+
+   A small `pdoc` example.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   dog.demo.Dog
+
+
+Module Contents
+---------------
+
+.. py:class:: Dog(name: str)
+
+   🐕
+
+
+   .. py:attribute:: name
+      :type:  str
+
+      The name of our dog.
+
+
+   .. py:attribute:: friends
+      :type:  list[Dog]
+
+      The friends of our dog.
+
+
+   .. py:method:: bark(loud: bool = True)
+
+      *woof*
+
+
+
