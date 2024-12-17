@@ -27,7 +27,7 @@ runs:
       - name: Install jupyterbook
         shell: bash
         run: |
-          uv pip install --no-cache-dir jupyter-book
+          uv pip install --no-cache-dir jupyter-book sphinx-math-dollar
 
       # Build the book
       - name: Build the book
