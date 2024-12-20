@@ -8,25 +8,25 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: cvxgrp/.github/actions/uv/marimo@main
+      - uses: ./actions/uv/marimo@main
 
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: cvxgrp/.github/actions/uv/pdoc@main
+      - uses: ./actions/uv/pdoc@main
 
   test:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: cvxgrp/.github/actions/uv/coverage@main
+      - uses: ./actions/uv/coverage@main
 
   jupyter:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - uses: cvxgrp/.github/actions/uv/jupyter@main
+      - uses: ./actions/uv/jupyter@main
 
   book:
     runs-on: "ubuntu-latest"
@@ -36,4 +36,4 @@ jobs:
       contents: write
 
     steps:
-      - uses: cvxgrp/.github/actions/book@main
+      - uses: ./actions/book@main
