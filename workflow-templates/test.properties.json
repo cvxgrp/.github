@@ -1,4 +1,4 @@
 {
   "name": "cvxgrp Test Workflow",
-  "description": "Test with poetry"
+  "description": "Test with uv"
 }
