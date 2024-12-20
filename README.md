@@ -8,12 +8,16 @@ Be careful when using actions in private repositories.
 The group has a limited number of minutes per month.
 In public repositories, actions are free.
 
-## Poetry
+## uv
 
-To take full advantage of those actions we recommend moving to [poetry](https://python-poetry.org/).
-Poetry is a python package manager that allows to create
-virtual environments and to manage dependencies.
-It is also a build tool that can be used to create packages and to run tests.
+To take full advantage of the actions given here we recommend using
+[uv](https://github.com/astral-sh/uv). uv is a modern package manager for Python.
+It allows to create and manage virtual environments.
+A more dated alternative is [poetry](https://python-poetry.org/).
+
+## taskfile
+
+We highly recommend [task](https://taskfile.dev). We offer central taskfiles [here](tasks)
 
 ## Action workflows
 
@@ -33,17 +37,6 @@ It uploads the generated documents to the draft branch.
 This workflow is used to support the release of packages (to pypi).
 It assumes the project is built with poetry. It publishes the produced
 'dist' folder to a dedicated branch.
-
-### [setup-environment](https://github.com/cvxgrp/.github/blob/main/actions/setup-environment/action.yml)
-
-This workflow installs python and poetry.
-It then proceeds to construct the virtual environment using poetry.
-It can rely on cached versions of the virtual environment.
-It assumes the project is built with poetry.
-
-### [sphinx](https://github.com/cvxgrp/.github/blob/main/actions/sphinx/action.yml)
-
-This workflow builds a sphinx documentation based on your docstrings.
 
 ### [test](https://github.com/cvxgrp/.github/blob/main/actions/test/action.yml)
 
