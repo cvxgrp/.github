@@ -1,4 +1,4 @@
-from cvx.dog import Dog
+from cvx.dog.demo import Dog
 
 
 def test_dog():
