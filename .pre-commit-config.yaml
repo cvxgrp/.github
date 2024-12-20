@@ -6,11 +6,6 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
-  - repo: https://github.com/psf/black
-    rev: 23.7.0
-    hooks:
-      - id: black
-
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: 'v0.0.286'
     hooks:
@@ -22,12 +17,6 @@ repos:
     hooks:
       - id: markdownlint-fix
         args: [ "--ignore", "book/**/*.md", "--ignore", "contributing/*.md" ]
-
-  # enforcing the use of new python syntax with pyupgrade
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.10.1
-    hooks:
-      - id: pyupgrade
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.26.3
