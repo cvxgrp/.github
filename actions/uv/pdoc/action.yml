@@ -12,43 +12,36 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 name: Build pdoc documentation
-
 description: "Build pdoc documentation"
 
-on:
-  workflow_call:
-    inputs:
-      source-folder:
-        description: 'Source folder'
-        type: string
-        required: false
-        default: 'cvx'
-      pdoc-arguments:
-        description: 'pdoc arguments'
-        type: string
-        required: false
-        default: ''
+inputs:
+  source-folder:
+    description: 'Source folder to generate documentation for'
+    type: string
+    required: false
+    default: 'cvx'
+  pdoc-arguments:
+    description: 'Additional pdoc command line arguments'
+    type: string
+    required: false
+    default: ''
+
 runs:
   using: "composite"
-
   steps:
-      #- uses: actions/checkout@v4
+    - name: Set up uv
+      uses: cvxgrp/.github/actions/uv/setup@main
 
-      - uses: cvxgrp/.github/actions/uv/setup@main
+    - name: Install and build pdoc
+      shell: bash
+      run: |
+        uv pip install --no-cache-dir pdoc
+        mkdir -p artifacts/pdoc
+        uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
 
-      - name: Install pdoc
-        shell: bash
-        run: |
-          uv pip install --no-cache-dir pdoc
-
-      - name: Build pdoc
-        shell: bash
-        run: |
-          uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
-
-      - name: Archive sphinx documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: pdoc
-          path: artifacts/pdoc
-          retention-days: 1
+    - name: Upload documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: pdoc
+        path: artifacts/pdoc
+        retention-days: 1

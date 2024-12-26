@@ -11,41 +11,35 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Build sphinx documentation
+name: Build Sphinx Documentation
+description: "Build Sphinx documentation with RTD theme and autoapi support"
 
-description: "Build sphinx documentation"
-
-on:
-  workflow_call:
-    inputs:
-      sphinx-folder:
-        description: 'Sphinx folder'
-        type: string
-        required: false
-        default: 'book/sphinx'
+inputs:
+  sphinx-folder:
+    description: 'Path to Sphinx documentation source'
+    type: string
+    required: false
+    default: 'book/sphinx'
 
 runs:
   using: "composite"
-
   steps:
-      - uses: cvxgrp/.github/actions/uv/setup@main
+    - name: Set up uv
+      uses: cvxgrp/.github/actions/uv/setup@main
 
-      - name: Install sphinx
-        shell: bash
-        run: |
-          uv pip install --no-cache-dir \
-                     sphinx==7.2.6 \
-                     sphinx-autoapi \
-                     sphinx-rtd-theme
+    - name: Install and build Sphinx
+      shell: bash
+      run: |
+        uv pip install --no-cache-dir \
+          sphinx==7.2.6 \
+          sphinx-autoapi \
+          sphinx-rtd-theme
+        mkdir -p artifacts/sphinx
+        uv run sphinx-build -b html ${{ inputs.sphinx-folder }} artifacts/sphinx
 
-      - name: Build sphinx
-        shell: bash
-        run: |
-          uv run sphinx-build -b html ${{ inputs.sphinx-folder || 'book/sphinx' }} artifacts/sphinx
-
-      - name: Archive sphinx documentation
-        uses: actions/upload-artifact@v3
-        with:
-          name: sphinx
-          path: artifacts/sphinx
-          retention-days: 1
+    - name: Upload documentation
+      uses: actions/upload-artifact@v3
+      with:
+        name: sphinx
+        path: artifacts/sphinx
+        retention-days: 1

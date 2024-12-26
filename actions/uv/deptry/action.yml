@@ -11,30 +11,23 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Run Deptry analysis
+name: 'Dependency Check'
+description: 'Run deptry to check for dependency issues'
 
-description: "Perform Deptry"
-
-on:
-  workflow_call:
-    inputs:
-      source-folder:
-        description: 'Source folder'
-        type: string
-        required: false
-        default: 'cvx'
+inputs:
+  source-folder:
+    description: 'Source folder to analyze'
+    required: false
+    default: 'cvx'
 
 runs:
   using: "composite"
   steps:
-      - uses: cvxgrp/.github/actions/uv/setup@main
+    - name: Set up uv
+      uses: cvxgrp/.github/actions/uv/setup@main
 
-      - name: Install deptry
-        shell: bash
-        run: |
-            uv pip install --no-cache-dir deptry
-
-      - name: Run deptry
-        shell: bash
-        run : |
-            uv run deptry ${{ inputs.source-folder || 'cvx' }}
+    - name: Install and run deptry
+      shell: bash
+      run: |
+        uv pip install --no-cache-dir deptry
+        uv run deptry ${{ inputs.source-folder }}

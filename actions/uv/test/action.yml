@@ -11,30 +11,29 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Perform testing
+name: Run Tests
+description: "Run pytest test suite"
 
-description: "Perform a test"
-
-on:
-  workflow_call:
-    inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.12'
+inputs:
+  python-version:
+    description: 'Python version to use for testing'
+    type: string
+    required: false
+    default: '3.12'
 
 runs:
   using: "composite"
   steps:
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/uv/setup@main
-        with:
-          python-version: ${{ inputs.python-version || '3.12' }}
+    - name: Set up Python environment
+      uses: cvxgrp/.github/actions/uv/setup@main
+      with:
+        python-version: ${{ inputs.python-version }}
 
-      - name: Test
-        shell: bash
-        run: |
-            uv pip install --no-cache-dir pytest
-            uv run pytest tests
+    - name: Run tests
+      shell: bash
+      run: |
+        uv pip install --no-cache-dir pytest
+        uv run pytest tests
