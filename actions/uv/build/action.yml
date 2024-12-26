@@ -11,18 +11,15 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Build
+name: Build Package
+description: "Build Python package and publish artifacts"
 
-description: "Build with poetry"
-
-on:
-  workflow_call:
-    inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.12'
+inputs:
+  python-version:
+    description: 'Python version to use for building'
+    type: string
+    required: false
+    default: '3.12'
 
 permissions:
   contents: write
@@ -31,27 +28,28 @@ runs:
   using: "composite"
 
   steps:
-    - uses: cvxgrp/.github/actions/uv/setup@main
+    - name: Set up Python environment
+      uses: cvxgrp/.github/actions/uv/setup@main
       with:
-        python-version: "${{ inputs.python-version || '3.11' }}"
+        python-version: ${{ inputs.python-version }}
 
-    - name: Change version in pyproject.toml
+    - name: Build package
       shell: bash
       run: |
-         sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
-         uv build
+        # Update version in pyproject.toml from git tag
+        sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
+        # Build the package
+        uv build
 
-    #Archive the dist folder
-    - name: Archive sphinx documentation
+    - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-         name: dist
-         path: dist
-         retention-days: 1
+        name: dist
+        path: dist
+        retention-days: 1
 
-    # Push dist folder to the build branch
-    - name: Publish the dist folder
+    - name: Publish to dist branch
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        branch: dist     # The branch the action should deploy to.
-        folder: dist     # The folder the action should deploy.
+        branch: dist
+        folder: dist

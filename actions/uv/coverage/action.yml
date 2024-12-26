@@ -11,48 +11,54 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Measure test coverage
+name: Measure Test Coverage
+description: "Run tests with comprehensive coverage reporting"
 
-description: "Test for coverage"
-
-on:
-  workflow_call:
-    inputs:
-      source-folder:
-        description: 'Source folder'
-        type: string
-        required: false
-        default: 'cvx'
+inputs:
+  source-folder:
+    description: 'Source folder to measure coverage for'
+    type: string
+    required: false
+    default: 'cvx'
 
 runs:
   using: "composite"
   steps:
-      - uses: cvxgrp/.github/actions/uv/setup@main
+    - name: Set up Python environment
+      uses: cvxgrp/.github/actions/uv/setup@main
 
-      - name: Test on Linux
-        shell: bash
-        run: |
-            uv pip install --no-cache-dir \
-                       pytest \
-                       pytest-cov \
-                       pytest-html \
-                       pytest-random-order
+    - name: Run tests with coverage
+      shell: bash
+      run: |
+        # Install testing dependencies
+        uv pip install --no-cache-dir \
+          pytest \
+          pytest-cov \
+          pytest-html \
+          pytest-random-order
 
-            uv run pytest --cov=${{ inputs.source-folder || 'cvx' }} --random-order --verbose \
-                              --html=artifacts/tests/html-report/report.html \
-                              --cov-report term \
-                              --cov-report xml:artifacts/tests/coverage/coverage.xml \
-                              --cov-report json:artifacts/tests/coverage/coverage.json \
-                              --cov-report lcov:artifacts/tests/coverage/coverage.info \
-                              --cov-report html:artifacts/tests/html-coverage \
-                              tests/
+        # Create output directories
+        mkdir -p artifacts/tests/{html-report,coverage,html-coverage}
 
-            # I want to upload the result to gh-pages, hence this file disturbs
-            rm -f artifacts/tests/html-coverage/.gitignore
+        # Run pytest with coverage reporting
+        uv run pytest \
+          --cov=${{ inputs.source-folder }} \
+          --random-order \
+          --verbose \
+          --html=artifacts/tests/html-report/report.html \
+          --cov-report=term \
+          --cov-report=xml:artifacts/tests/coverage/coverage.xml \
+          --cov-report=json:artifacts/tests/coverage/coverage.json \
+          --cov-report=lcov:artifacts/tests/coverage/coverage.info \
+          --cov-report=html:artifacts/tests/html-coverage \
+          tests/
 
-      - name: Archive tests results
-        uses: actions/upload-artifact@v4
-        with:
-          name: tests
-          path: artifacts/tests
-          retention-days: 1
+        # Remove .gitignore for gh-pages compatibility
+        rm -f artifacts/tests/html-coverage/.gitignore
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: tests
+        path: artifacts/tests
+        retention-days: 1
