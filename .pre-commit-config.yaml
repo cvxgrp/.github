@@ -17,3 +17,8 @@ repos:
     hooks:
       - id: check-dependabot
         args: [ "--verbose" ]
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.29.0
+    hooks:
+      - id: typos
