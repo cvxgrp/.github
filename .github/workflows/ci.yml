@@ -24,7 +24,7 @@ jobs:
       - name: Init a project
         shell: bash
         run: |
-          - uv init
+          uv init
 
       - name: Setup an environment
         id: setup
