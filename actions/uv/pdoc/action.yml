@@ -66,7 +66,6 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        cd ${{ inputs.working-directory }}
         mkdir -p artifacts/pdoc
         uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
 
