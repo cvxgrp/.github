@@ -29,7 +29,10 @@ jobs:
       - name: Init a project
         shell: bash
         run: |
-          uv init
+          uv init hello-world
+          cd hello-world
+          ls -all
+          cat pyproject.toml
 
       - name: Setup an environment
         id: setup
