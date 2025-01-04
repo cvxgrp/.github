@@ -27,9 +27,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: cvxgrp/.github/actions/uv/setup@main
+    - uses: ./actions/uv/setup
       with:
         python-version: '3.12'
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Install marimo
       shell: bash
