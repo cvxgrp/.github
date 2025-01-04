@@ -30,7 +30,7 @@ runs:
 
   steps:
     - name: Set up Python environment
-      uses: cvxgrp/.github/actions/uv/setup@main
+      uses: ./actions/uv/setup
       with:
         python-version: ${{ inputs.python-version }}
 

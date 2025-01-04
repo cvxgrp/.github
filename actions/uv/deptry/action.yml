@@ -28,7 +28,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up uv
-      uses: cvxgrp/.github/actions/uv/setup@main
+      uses: ./actions/uv/setup
       with:
         python-version: '3.12'
 

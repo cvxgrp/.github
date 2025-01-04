@@ -29,7 +29,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up Python environment
-      uses: ./actions/uv/setup@main
+      uses: ./actions/uv/setup
       with:
         python-version: '3.12'
         working-directory: ${{ inputs.working-directory }}
