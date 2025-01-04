@@ -28,7 +28,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up uv
-      uses: ./actions/uv/setup
+      uses: ${{ github.action_path }}/actions/uv/setup
       with:
         python-version: '3.12'
 
