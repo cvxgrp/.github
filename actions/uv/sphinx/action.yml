@@ -50,6 +50,7 @@ runs:
 
     - name: Install and build Sphinx
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         uv pip install --no-cache-dir sphinx==7.2.6 sphinx-autoapi sphinx-rtd-theme
         mkdir -p artifacts/sphinx
@@ -59,5 +60,5 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: sphinx
-        path: artifacts/sphinx
+        path: ${{ inputs.working-directory }}/artifacts/sphinx
         retention-days: 1
