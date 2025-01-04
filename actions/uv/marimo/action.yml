@@ -55,20 +55,20 @@ runs:
 
     - name: Install marimo
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
-        cd ${{ inputs.working-directory }}
         uv pip install --no-cache-dir marimo
 
     - name: Create output directory
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
-        cd ${{ inputs.working-directory }}
         mkdir -p artifacts/marimo
 
     - name: Convert Marimo files to HTML
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
-        cd ${{ inputs.working-directory }}
         if [ ! -d "${{ inputs.source_dir }}" ]; then
           echo "Error: Source directory ${{ inputs.source_dir }} does not exist"
           exit 1

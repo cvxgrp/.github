@@ -9,41 +9,41 @@
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
-name: Setup Python Environment
-description: "Set up Python environment for CI/CD using uv"
-
-inputs:
-  python-version:
-    description: 'Python version to install'
-    type: string
-    required: false
-    default: '3.12'
-
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
-
-runs:
-  using: "composite"
-  steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v4
-
-    - name: Install uv
-      uses: astral-sh/setup-uv@v4
-      with:
-        version: "0.5.11"
-        # Caching options kept for future reference
-        # enable-cache: 'true'
-        # cache-local-path: '/tmp/cache'
-        # cache-dependency-glob: 'uv.lock'
-
-    - name: Set up Python and install dependencies
-      shell: bash
-      run: |
-        cd ${{ inputs.working-directory }}
-        uv python install ${{ inputs.python-version }}
-        uv sync --all-extras --dev --frozen
+##    See the License for the specific language governing permissions and
+##    limitations under the License.
+#name: Setup Python Environment
+#description: "Set up Python environment for CI/CD using uv"
+#
+#inputs:
+#  python-version:
+#    description: 'Python version to install'
+#    type: string
+#    required: false
+#    default: '3.12'
+#
+#  working-directory:
+#    description: 'Directory where the Python project is located'
+#    required: false
+#    default: '.'
+#
+#runs:
+#  using: "composite"
+#  steps:
+#    - name: Checkout the repo
+#      uses: actions/checkout@v4
+#
+#    - name: Install uv
+#      uses: astral-sh/setup-uv@v4
+#      with:
+#        version: "0.5.11"
+#        # Caching options kept for future reference
+#        # enable-cache: 'true'
+#        # cache-local-path: '/tmp/cache'
+#        # cache-dependency-glob: 'uv.lock'
+#
+#    - name: Set up Python and install dependencies
+#      shell: bash
+#      run: |
+#        cd ${{ inputs.working-directory }}
+#        uv python install ${{ inputs.python-version }}
+#        uv sync --all-extras --dev --frozen
