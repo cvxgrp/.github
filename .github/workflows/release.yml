@@ -1,8 +1,7 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
 
 jobs:
   build:
@@ -12,3 +11,5 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: ./actions/uv/build
+        with:
+          working-directory: '.github/hello-world'
