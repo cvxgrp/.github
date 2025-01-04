@@ -19,6 +19,10 @@ inputs:
     description: 'Source directory containing Marimo .py files'
     required: false
     default: 'book/marimo'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
 runs:
   using: composite
@@ -29,15 +33,20 @@ runs:
 
     - name: Install marimo
       shell: bash
-      run: uv pip install --no-cache-dir marimo
+      run: |
+        cd ${{ inputs.working-directory }}
+        uv pip install --no-cache-dir marimo
 
     - name: Create output directory
       shell: bash
-      run: mkdir -p artifacts/marimo
+      run: |
+        cd ${{ inputs.working-directory }}
+        mkdir -p artifacts/marimo
 
     - name: Convert Marimo files to HTML
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         if [ ! -d "${{ inputs.source_dir }}" ]; then
           echo "Error: Source directory ${{ inputs.source_dir }} does not exist"
           exit 1
@@ -62,5 +71,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: marimo
-        path: artifacts/marimo
+        path: ${{ inputs.working-directory }}/artifacts/marimo
         retention-days: 1

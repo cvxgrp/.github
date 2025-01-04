@@ -20,9 +20,10 @@ inputs:
     type: string
     required: false
     default: '3.12'
-
-#permissions:
-#  contents: write
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -36,6 +37,7 @@ runs:
     - name: Build package
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         # Update version in pyproject.toml from git tag
         sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
         # Build the package
@@ -45,7 +47,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: dist
-        path: dist
+        path: ${{ inputs.working-directory }}/dist
         retention-days: 1
 
     #- name: Publish to dist branch

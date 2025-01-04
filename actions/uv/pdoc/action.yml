@@ -25,6 +25,10 @@ inputs:
     type: string
     required: false
     default: ''
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -37,6 +41,7 @@ runs:
     - name: Install and build pdoc
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         uv pip install --no-cache-dir pdoc
         mkdir -p artifacts/pdoc
         uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
@@ -45,5 +50,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: pdoc
-        path: artifacts/pdoc
+        path: ${{ inputs.working-directory }}/artifacts/pdoc
         retention-days: 1

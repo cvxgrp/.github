@@ -14,6 +14,12 @@
 name: Build the Jupyter Book
 description: "Build jupyter book"
 
+inputs:
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+
 runs:
     using: "composite"
 
@@ -25,12 +31,14 @@ runs:
       - name: Install jupyterbook
         shell: bash
         run: |
+          cd ${{ inputs.working-directory }}
           uv pip install --no-cache-dir jupyter-book sphinx-math-dollar
 
       # Build the book
       - name: Build the book
         shell: bash
         run: |
+          cd ${{ inputs.working-directory }}
           uv run jupyter-book clean book
           uv run jupyter-book build book
 

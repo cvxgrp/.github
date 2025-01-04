@@ -20,6 +20,10 @@ inputs:
     type: string
     required: false
     default: 'cvx'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -32,6 +36,7 @@ runs:
     - name: Run tests with coverage
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         # Install testing dependencies
         uv pip install --no-cache-dir \
           pytest \
@@ -62,5 +67,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: tests
-        path: artifacts/tests
+        path: ${{ inputs.working-directory }}/artifacts/tests
         retention-days: 1
