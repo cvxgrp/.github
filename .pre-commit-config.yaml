@@ -18,6 +18,10 @@ repos:
       - id: check-dependabot
         args: [ "--verbose" ]
 
+      - id: check-github-actions
+        args: ["actions/**/action.yml"]
+
+
   - repo: https://github.com/crate-ci/typos
     rev: v1.29.0
     hooks:
