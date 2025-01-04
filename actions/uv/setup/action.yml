@@ -24,8 +24,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v4
+    #- name: Checkout the repo
+    #  uses: actions/checkout@v4
 
     - name: Install uv
       uses: astral-sh/setup-uv@v4
