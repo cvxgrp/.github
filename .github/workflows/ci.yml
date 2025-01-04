@@ -29,15 +29,13 @@ jobs:
       - name: Init a project
         shell: bash
         run: |
-          #uv init hello-world
           cd .github/workflows/hello-world
           ls -all
           cat pyproject.toml
           uv python install '3.12'
           #uv lock
-          uv sync --all-extras --dev --frozen
+          #uv sync --all-extras --dev --frozen
 
 
-      #- name: Setup an environment
-      #  id: setup
-      #  uses: ./actions/uv/setup
+      - name: Setup an environment
+        uses: ./actions/uv/setup
