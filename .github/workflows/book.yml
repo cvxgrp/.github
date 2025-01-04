@@ -56,4 +56,4 @@ jobs:
         - name: Checkout [${{ github.repository }}]
           uses: actions/checkout@v4
 
-        - uses: ./actions/book@main
+        - uses: ./actions/book
