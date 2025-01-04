@@ -51,6 +51,8 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
+        pwd
+        ls -all
         uv python install ${{ inputs.python-version }}
         uv sync --all-extras --dev --frozen
 
