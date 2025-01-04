@@ -29,27 +29,51 @@ inputs:
     description: 'Directory where the Python project is located'
     required: false
     default: '.'
+  python-version:
+    description: 'Python version to use'
+    required: false
+    default: '3.12'
 
 runs:
   using: "composite"
   steps:
-    - name: Set up uv
-      uses: ././actions/uv/setup
-      with:
-        python-version: '3.12'
-        working-directory: ${{ inputs.working-directory }}
+    - name: Install uv
+      shell: bash
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Set up Python environment with uv
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Create venv with specific Python version
+        uv venv --python ${{ inputs.python-version }}
+        # Add venv to PATH
+        echo ".venv/bin" >> $GITHUB_PATH
+
+    - name: Install project dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        uv python install ${{ inputs.python-version }}
+        uv sync --all-extras --dev --frozen
+
+        # Install coverage tools separately to ensure they don't conflict
+        uv pip install --no-cache-dir pdoc
 
     - name: Install and build pdoc
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         cd ${{ inputs.working-directory }}
-        uv pip install --no-cache-dir pdoc
         mkdir -p artifacts/pdoc
         uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
 
     - name: Upload documentation
       uses: actions/upload-artifact@v4
+      working-directory: ${{ inputs.working-directory }}
       with:
         name: pdoc
-        path: ${{ inputs.working-directory }}/artifacts/pdoc
+        path: artifacts/pdoc
         retention-days: 1
