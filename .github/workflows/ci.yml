@@ -16,12 +16,6 @@ jobs:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-
-      #- name: Setup an environment
-      #  uses: ./actions/uv/setup
-      #  with:
-      #    working-directory: .github/hello-world
-
       - name: Test a project
         uses: ./actions/uv/test
         with:
