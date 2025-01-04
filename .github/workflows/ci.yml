@@ -34,6 +34,7 @@ jobs:
           ls -all
           cat pyproject.toml
           uv python install '3.12'
+          uv lock
           uv sync --all-extras --dev --frozen
 
 
