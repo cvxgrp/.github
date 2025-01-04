@@ -27,7 +27,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: ./actions/uv/setup
+    - uses: ${{ github.action_path }}/actions/uv/setup
       with:
         python-version: '3.12'
         working-directory: ${{ inputs.working-directory }}
