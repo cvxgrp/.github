@@ -29,9 +29,10 @@ runs:
   using: "composite"
   steps:
     - name: Set up Python environment
-      uses: cvxgrp/.github/actions/uv/setup@main
+      uses: ./actions/uv/setup@main
       with:
         python-version: '3.12'
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Run tests with coverage
       shell: bash
