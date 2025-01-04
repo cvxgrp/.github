@@ -46,21 +46,12 @@ runs:
         uv venv --python ${{ inputs.python-version }}
         # Add venv to PATH
         echo ".venv/bin" >> $GITHUB_PATH
-
-    - name: Install project dependencies
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: |
-        uv python install ${{ inputs.python-version }}
         uv sync --all-extras --dev --frozen
 
     - name: Install and build Sphinx
       shell: bash
       run: |
-        uv pip install --no-cache-dir \
-          sphinx==7.2.6 \
-          sphinx-autoapi \
-          sphinx-rtd-theme
+        uv pip install --no-cache-dir sphinx==7.2.6 sphinx-autoapi sphinx-rtd-theme
         mkdir -p artifacts/sphinx
         uv run sphinx-build -b html ${{ inputs.sphinx-folder }} artifacts/sphinx
 
