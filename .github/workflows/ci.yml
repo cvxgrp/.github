@@ -33,7 +33,10 @@ jobs:
           cd hello-world
           ls -all
           cat pyproject.toml
+          uv python install '3.12'
+          uv sync --all-extras --dev --frozen
 
-      - name: Setup an environment
-        id: setup
-        uses: ./actions/uv/setup
+
+      #- name: Setup an environment
+      #  id: setup
+      #  uses: ./actions/uv/setup
