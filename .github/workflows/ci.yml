@@ -12,30 +12,17 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    # https://github.com/glassechidna/ghaoidc/issues/1
-    #permissions:
-    #  id-token: write
-    #  contents: read
-
     steps:
       - name: Checkout [${{ github.repository }}]
         uses: actions/checkout@v4
 
-      #- name: Install uv
-      #  uses: astral-sh/setup-uv@v4
-      #  with:
-      #    version: "0.5.11"
-
-      #- name: Init a project
-      #  shell: bash
-      #  run: |
-      #    cd .github/workflows/hello-world
-      #    ls -all
-      #    cat pyproject.toml
-      #    uv python install '3.12'
-      #    #uv sync --all-extras --dev --frozen
 
       - name: Setup an environment
         uses: ./actions/uv/setup
         with:
-          working-directory: .github/workflows/hello-world
+          working-directory: .github/hello-world
+
+      - name: Test a project
+        uses: ./actions/uv/test
+        with:
+          working-directory: .github/hello-world

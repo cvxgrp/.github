@@ -20,6 +20,10 @@ inputs:
     type: string
     required: false
     default: '3.12'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -28,9 +32,11 @@ runs:
       uses: cvxgrp/.github/actions/uv/setup@main
       with:
         python-version: ${{ inputs.python-version }}
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Run tests
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         uv pip install --no-cache-dir pytest
         uv run pytest tests
