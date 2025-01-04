@@ -37,6 +37,7 @@ runs:
       uses: cvxgrp/.github/actions/uv/setup@main
       with:
         python-version: '3.12'
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Install and build pdoc
       shell: bash

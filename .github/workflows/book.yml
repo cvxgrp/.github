@@ -1,48 +1,59 @@
-name: "book"
+name: BOOK
 
 on:
-- push
+  push:
 
 jobs:
-  marimo:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: ./actions/uv/marimo
-        with:
-          working-directory: .github/hello-world
+    marimo:
+      runs-on: "ubuntu-latest"
 
-  #sphinx:
-  #  runs-on: "ubuntu-latest"
-  #  steps:
-  #    - uses: cvxgrp/.github/actions/uv/sphinx@main
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
 
-  pdoc:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: ./actions/uv/pdoc
-        with:
-          working-directory: .github/hello-world
+        - uses: ./actions/uv/marimo
+          with:
+            working-directory: .github/hello-world
 
-  test:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: ./actions/uv/coverage
-        with:
-          working-directory: .github/hello-world
+    pdoc:
+      runs-on: "ubuntu-latest"
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
 
-  jupyter:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: ./actions/uv/jupyter
-        with:
-          working-directory: .github/hello-world
+        - uses: ./actions/uv/pdoc
+          with:
+            working-directory: .github/hello-world
 
-  book:
-    runs-on: "ubuntu-latest"
-    needs: [test, pdoc, jupyter, marimo]
+    test:
+      runs-on: "ubuntu-latest"
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
 
-    permissions:
-      contents: write
+        - uses: ./actions/uv/coverage
+          with:
+            working-directory: .github/hello-world
 
-    steps:
-      - uses: ./actions/book@main
+    jupyter:
+      runs-on: "ubuntu-latest"
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
+
+        - uses: ./actions/uv/jupyter
+          with:
+            working-directory: .github/hello-world
+
+    book:
+      runs-on: "ubuntu-latest"
+      needs: [test, pdoc, jupyter, marimo]
+
+      permissions:
+        contents: write
+
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
+
+        - uses: ./actions/book@main
