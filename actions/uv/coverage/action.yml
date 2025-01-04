@@ -55,25 +55,13 @@ runs:
         uv sync --all-extras --dev --frozen
 
         # Install coverage tools separately to ensure they don't conflict
-        uv pip install --upgrade pytest pytest-cov coverage
+        uv pip install --no-cache-dir pytest pytest-cov pytest-html pytest-random-order
 
-    #- name: Set up Python environment
-    #  uses: ${{ github.action_path }}/actions/uv/setup
-    #  with:
-    #    python-version: '3.12'
-    #    working-directory: ${{ inputs.working-directory }}
 
     - name: Run tests with coverage
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
-        cd ${{ inputs.working-directory }}
-        # Install testing dependencies
-        uv pip install --no-cache-dir \
-          pytest \
-          pytest-cov \
-          pytest-html \
-          pytest-random-order
-
         # Create output directories
         mkdir -p artifacts/tests/{html-report,coverage,html-coverage}
 
