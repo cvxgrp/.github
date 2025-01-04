@@ -25,49 +25,43 @@ inputs:
     default: '3.12'
 
 runs:
-      using: "composite"
+  using: "composite"
 
-      steps:
-      - name: Install uv
-        shell: bash
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+  steps:
+    - name: Install uv
+      shell: bash
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
-      - name: Set up Python environment with uv
-        shell: bash
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          # Create venv with specific Python version
-          uv venv --python ${{ inputs.python-version }}
-          # Add venv to PATH
-          echo ".venv/bin" >> $GITHUB_PATH
+    - name: Set up Python environment with uv
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Create venv with specific Python version
+        uv venv --python ${{ inputs.python-version }}
+        # Add venv to PATH
+        echo ".venv/bin" >> $GITHUB_PATH
+        uv sync --all-extras --dev --frozen
 
-      - name: Install project dependencies
-        shell: bash
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          uv python install ${{ inputs.python-version }}
-          uv sync --all-extras --dev --frozen
+    - name: Install jupyterbook
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        uv pip install --no-cache-dir jupyter-book sphinx-math-dollar
 
-      - name: Install jupyterbook
-        shell: bash
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          uv pip install --no-cache-dir jupyter-book sphinx-math-dollar
+    # Build the book
+    - name: Build the book
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        uv run jupyter-book clean book
+        uv run jupyter-book build book
 
-      # Build the book
-      - name: Build the book
-        shell: bash
-        run: |
-          cd ${{ inputs.working-directory }}
-          uv run jupyter-book clean book
-          uv run jupyter-book build book
-
-      # Upload the book
-      - name: Archive book
-        uses: actions/upload-artifact@v4
-        with:
-          name: book
-          path: ${{ inputs.working-directory }}/book/_build/html/
-          retention-days: 1
+    # Upload the book
+    - name: Archive book
+      uses: actions/upload-artifact@v4
+      with:
+        name: book
+        path: ${{ inputs.working-directory }}/book/_build/html/
+        retention-days: 1
