@@ -24,15 +24,44 @@ inputs:
     description: 'Directory where the Python project is located'
     required: false
     default: '.'
+  python-version:
+    description: 'Python version to use'
+    required: false
+    default: '3.12'
 
 runs:
   using: "composite"
   steps:
-    - name: Set up Python environment
-      uses: ${{ github.action_path }}/actions/uv/setup
-      with:
-        python-version: '3.12'
-        working-directory: ${{ inputs.working-directory }}
+    - name: Install uv
+      shell: bash
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Set up Python environment with uv
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Create venv with specific Python version
+        uv venv --python ${{ inputs.python-version }}
+        # Add venv to PATH
+        echo ".venv/bin" >> $GITHUB_PATH
+
+    - name: Install project dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        uv python install ${{ inputs.python-version }}
+        uv sync --all-extras --dev --frozen
+
+        # Install coverage tools separately to ensure they don't conflict
+        uv pip install --upgrade pytest pytest-cov coverage
+
+    #- name: Set up Python environment
+    #  uses: ${{ github.action_path }}/actions/uv/setup
+    #  with:
+    #    python-version: '3.12'
+    #    working-directory: ${{ inputs.working-directory }}
 
     - name: Run tests with coverage
       shell: bash
