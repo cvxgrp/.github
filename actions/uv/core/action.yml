@@ -17,11 +17,13 @@ runs:
       # Install uv
       - name: Install uv
         uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d9e5ab3a
+        with:
+          python-version: ${{ inputs.python-version }}
+
 
       - name: Set up Python and install dependencies
         shell: bash
         working-directory: ${{ inputs.working-directory }}
         run: |
-          uv python install ${{ inputs.python-version }}
           uv venv
           uv pip install --no-cache-dir  -r requirements.txt
