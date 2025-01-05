@@ -90,10 +90,10 @@ runs:
         github-token: ${{ inputs.GITHUB_TOKEN }}
         biber-version: '2.17'
         # Add additional LaTeX packages if needed
-        packages: |
-          fonts-extra
-          standalone
-          latexmk
+        #packages: |
+        #  fonts-extra
+        #  standalone
+        #  latexmk
 
     - name: Create output directories
       shell: bash
