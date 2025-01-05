@@ -8,6 +8,21 @@ Be careful when using actions in private repositories.
 The group has a limited number of minutes per month.
 In public repositories, actions are free.
 
+## :warning: Removed actions
+
+We have removed the poetry based action
+
+- actions/test@main
+- actions/sphinx@main
+- actions/setup-environment@main
+- actions/pdoc@main
+- actions/jupyter@main
+- actions/coverage@main
+- actions/book@main
+
+You have two options. You can either use cvxgrp/.github/actions/test@v1.2.0
+where all those actions are still present or move to uv.
+
 ## uv
 
 To take full advantage of the actions given here we recommend using
