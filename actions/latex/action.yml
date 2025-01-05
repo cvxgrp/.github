@@ -20,36 +20,35 @@ permissions:
   pages: write
   id-token: write
 
-on:
-  workflow_call:
-    inputs:
-      paper:
-        description: 'Space-separated list of LaTeX files to compile'
-        type: string
-        required: true
-      output-folder:
-        description: 'Output directory for compiled documents'
-        type: string
-        required: false
-        default: ''
-      draft:
-        description: 'Target branch for deployment'
-        type: string
-        required: false
-        default: 'draft'
-      enable-cache:
-        description: 'Enable Tectonic caching'
-        type: boolean
-        required: false
-        default: true
-      create-release:
-        description: 'Create a GitHub release with compiled PDFs'
-        type: boolean
-        required: false
-        default: false
-    secrets:
-      GITHUB_TOKEN:
-        required: true
+
+inputs:
+  paper:
+    description: 'Space-separated list of LaTeX files to compile'
+    type: string
+    required: true
+  output-folder:
+    description: 'Output directory for compiled documents'
+    type: string
+    required: false
+    default: ''
+  draft:
+    description: 'Target branch for deployment'
+    type: string
+    required: false
+    default: 'draft'
+  enable-cache:
+    description: 'Enable Tectonic caching'
+    type: boolean
+    required: false
+    default: true
+  create-release:
+    description: 'Create a GitHub release with compiled PDFs'
+    type: boolean
+    required: false
+    default: false
+secrets:
+  GITHUB_TOKEN:
+    required: true
 
 runs:
   using: "composite"
