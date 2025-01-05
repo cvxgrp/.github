@@ -28,18 +28,18 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # Install uv
     - name: Install uv
-      shell: bash
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      uses: astral-sh/setup-uv@887a942a15af3a7626099df99e897a18d9e5ab3a
+      with:
+        python-version: ${{ inputs.python-version }}
 
     - name: Set up Python environment with uv
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        # Create venv with specific Python version
-        uv venv --python ${{ inputs.python-version }}
+        # Create venv
+        uv venv
         # Add venv to PATH
         echo ".venv/bin" >> $GITHUB_PATH
         uv sync --all-extras --dev --frozen
