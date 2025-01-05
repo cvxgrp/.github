@@ -8,23 +8,33 @@ jobs:
   sphinx:
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/uv/sphinx@main
 
   test:
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/uv/test@main
 
   pdoc:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/uv/pdoc@main
 
   marimo:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/uv/marimo@main
 
   book:
@@ -35,4 +45,7 @@ jobs:
       contents: write
 
     steps:
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
       - uses: cvxgrp/.github/actions/book@main
