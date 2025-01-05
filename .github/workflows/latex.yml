@@ -23,7 +23,7 @@ jobs:
         uses: ./actions/latex
         with:
           paper: ".github/hello-paper/main.tex"
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       #- name: Upload build artifacts
       #  uses: actions/upload-artifact@v4
