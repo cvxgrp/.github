@@ -15,10 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cat action
-        run: |
-          cat ./actions/latex/action.yml
-
       - name: Build LaTeX document
         uses: ./actions/latex
         with:
