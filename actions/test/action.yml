@@ -66,4 +66,5 @@ runs:
       shell: bash
       working-directory: ${{inputs.working-directory}}
       run: |
+          poetry run pip install pytest
           poetry run pytest tests
