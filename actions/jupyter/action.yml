@@ -15,14 +15,23 @@ name: Build the Jupyter Book
 
 description: "Build jupyter book"
 
-on:
-  workflow_call:
-    inputs:
-      kernel:
-        description: 'Jupyter kernel'
-        type: string
-        required: false
-        default: 'cvx'
+inputs:
+  python-version:
+    description: 'Python version'
+    type: string
+    required: false
+    default: '3.12'
+
+  kernel:
+    description: 'Jupyter kernel'
+    type: string
+    required: false
+    default: 'cvx'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+
 
 runs:
     using: "composite"
@@ -64,5 +73,5 @@ runs:
         uses: actions/upload-artifact@v4
         with:
           name: book
-          path: book/_build/html/
+          path: ${{ inputs.working-directory }}/book/_build/html/
           retention-days: 1

@@ -64,11 +64,13 @@ runs:
 
     - name: Install pdoc
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         poetry run pip install --no-cache-dir pdoc
 
     - name: Build pdoc
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
 
@@ -76,5 +78,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: pdoc
-        path: artifacts/pdoc
+        path: ${{ inputs.working-directory }}/artifacts/pdoc
         retention-days: 1

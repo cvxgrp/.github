@@ -15,14 +15,23 @@ name: Measure test coverage
 
 description: "Test for coverage"
 
-on:
-  workflow_call:
-    inputs:
-      source-folder:
-        description: 'Source folder'
-        type: string
-        required: false
-        default: 'cvx'
+inputs:
+  python-version:
+    description: 'Python version'
+    type: string
+    required: false
+    default: '3.12'
+
+  source-folder:
+    description: 'Source folder'
+    type: string
+    required: false
+    default: 'cvx'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+
 
 runs:
   using: "composite"
