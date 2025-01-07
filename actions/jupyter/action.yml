@@ -37,10 +37,29 @@ runs:
     using: "composite"
 
     steps:
-      #- name: Check out repository
-      #- uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          # It's easier to cache if a virtual environment within the project is used
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Install project
+        shell: bash
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          # upgrade pip
+          poetry run pip install --upgrade pip
+          poetry install --no-interaction --all-extras
 
       - name: Install jupyterbook
         shell: bash
