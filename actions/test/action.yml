@@ -15,27 +15,54 @@ name: Perform testing
 
 description: "Perform a test"
 
-on:
-  workflow_call:
-    inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.11'
+inputs:
+  python-version:
+    description: 'Python version'
+    type: string
+    required: false
+    default: '3.12'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+
 
 runs:
   using: "composite"
   steps:
-      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
-        with:
-          python-version: ${{ inputs.python-version || '3.11' }}
+    - name: Check out repository
+      uses: actions/checkout@v4
 
-      - name: OS
-        shell: bash
-        run: echo ${{ runner.os }}
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
 
-      - name: Test
-        shell: bash
-        run: |
-            poetry run pytest tests
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        # It's easier to cache if a virtual environment within the project is used
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    - name: Install project
+      shell: bash
+      run: |
+        # upgrade pip
+        poetry run pip install --upgrade pip
+        poetry install --no-interaction --all-extras
+
+      #- uses: cvxgrp/.github/actions/setup-environment@v1.2.0
+      #  with:
+      #    python-version: ${{ inputs.python-version || '3.11' }}
+
+      #- name: OS
+      #  shell: bash
+      #  run: echo ${{ runner.os }}
+
+    - name: Test
+      shell: bash
+      working-directory: ${{inputs.working-directory}}
+      run: |
+          poetry run pytest tests
