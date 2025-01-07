@@ -31,7 +31,7 @@ runs:
       #- name: Check out repository
       #- uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/setup-environment@main
+      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
 
       - name: Install jupyterbook
         shell: bash

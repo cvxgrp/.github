@@ -27,7 +27,7 @@ on:
 runs:
   using: "composite"
   steps:
-      - uses: cvxgrp/.github/actions/setup-environment@main
+      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
 
       - name: Test on Linux
         shell: bash

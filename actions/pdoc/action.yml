@@ -34,7 +34,7 @@ runs:
   steps:
       #- uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/setup-environment@main
+      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
 
       - name: Install pdoc
         shell: bash
