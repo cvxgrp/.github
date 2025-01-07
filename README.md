@@ -75,7 +75,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: cvxgrp/.github/actions/uv/test@main
+    - uses: cvxgrp/.github/actions/uv/test@v1.4.0
 
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v2
