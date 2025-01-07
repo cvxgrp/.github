@@ -15,40 +15,66 @@ name: Build pdoc documentation
 
 description: "Build pdoc documentation"
 
-on:
-  workflow_call:
-    inputs:
-      source-folder:
-        description: 'Source folder'
-        type: string
-        required: false
-        default: 'cvx'
-      pdoc-arguments:
-        description: 'pdoc arguments'
-        type: string
-        required: false
-        default: ''
+inputs:
+  source-folder:
+    description: 'Source folder'
+    type: string
+    required: false
+    default: 'cvx'
+  pdoc-arguments:
+    description: 'pdoc arguments'
+    type: string
+    required: false
+    default: ''
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+
+
 runs:
   using: "composite"
 
   steps:
       #- uses: actions/checkout@v4
+    - name: Check out repository
+      uses: actions/checkout@v4
 
-      - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
 
-      - name: Install pdoc
-        shell: bash
-        run: |
-          poetry run pip install --no-cache-dir pdoc==14.3.0
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        # It's easier to cache if a virtual environment within the project is used
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
 
-      - name: Build pdoc
-        shell: bash
-        run: |
-          poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments || '' }} ${{ inputs.source-folder || 'cvx' }}
+    - name: Install project
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # upgrade pip
+        poetry run pip install --upgrade pip
+        poetry install --no-interaction --all-extras
 
-      - name: Archive sphinx documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: pdoc
-          path: artifacts/pdoc
-          retention-days: 1
+
+    - name: Install pdoc
+      shell: bash
+      run: |
+        poetry run pip install --no-cache-dir pdoc
+
+    - name: Build pdoc
+      shell: bash
+      run: |
+        poetry run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
+
+    - name: Archive sphinx documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: pdoc
+        path: artifacts/pdoc
+        retention-days: 1
