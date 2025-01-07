@@ -1,0 +1,18 @@
+name: COVERAGE
+
+on:
+  push:
+
+jobs:
+
+  pass:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout [${{ github.repository }}]
+        uses: actions/checkout@v4
+
+      - name: Test a project
+        uses: ./actions/pdoc
+        with:
+          working-directory: .github/coverage
