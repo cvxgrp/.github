@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test a project
-        uses: ./actions/pdoc
+        uses: ./actions/coverage
         with:
-          working-directory: .github/coverage
+          working-directory: .github/hello-world
