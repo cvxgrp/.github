@@ -1,4 +1,3 @@
-
 #  Copyright 2023 Stanford University Convex Optimization Group
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,47 +11,53 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-name: Build
+name: Build Package
+description: "Build Python package and publish artifacts"
 
-description: "Build with poetry"
+inputs:
+  python-version:
+    description: 'Python version to use for building'
+    type: string
+    required: false
+    default: '3.12'
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
 
-on:
-  workflow_call:
-    inputs:
-      python-version:
-        description: 'Python version'
-        type: string
-        required: false
-        default: '3.11'
-
-permissions:
-  contents: write
 
 runs:
   using: "composite"
 
   steps:
-    - uses: cvxgrp/.github/actions/setup-environment@v1.2.0
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: "${{ inputs.python-version || '3.11' }}"
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+       # It's easier to cache if a virtual environment within the project is used
+       virtualenvs-create: true
+       virtualenvs-in-project: true
+       installer-parallel: true
+
 
     - name: Change version in pyproject.toml
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
          poetry version ${{  github.ref_name }}
          poetry build
 
-    #Archive the dist folder
-    - name: Archive sphinx documentation
+
+    - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-         name: dist
-         path: dist
-         retention-days: 1
-
-    # Push dist folder to the build branch
-    - name: Publish the dist folder
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: dist     # The branch the action should deploy to.
-        folder: dist     # The folder the action should deploy.
+        name: dist
+        path: ${{ inputs.working-directory }}/dist
+        retention-days: 1
