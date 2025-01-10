@@ -15,6 +15,10 @@ name: Measure Test Coverage
 description: "Run tests with comprehensive coverage reporting"
 
 inputs:
+  tests-folder:
+    description: 'Source folder with all tests'
+    required: false
+    default: 'tests'
   source-folder:
     description: 'Source folder to measure coverage for'
     type: string
@@ -69,7 +73,7 @@ runs:
           --cov-report=json:artifacts/tests/coverage/coverage.json \
           --cov-report=lcov:artifacts/tests/coverage/coverage.info \
           --cov-report=html:artifacts/tests/html-coverage \
-          tests/
+          ${{ inputs.tests-folder }}
 
         # Remove .gitignore for gh-pages compatibility
         rm -f artifacts/tests/html-coverage/.gitignore
