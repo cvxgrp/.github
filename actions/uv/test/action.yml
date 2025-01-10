@@ -16,7 +16,7 @@ description: "Run pytest test suite"
 
 inputs:
   tests-folder:
-    description: 'Source folder to analyze'
+    description: 'Source folder with all tests'
     required: false
     default: 'tests'
   python-version:
