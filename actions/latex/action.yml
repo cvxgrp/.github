@@ -46,8 +46,8 @@ inputs:
     type: boolean
     required: false
     default: true
-  GITHUB_TOKEN:
-    required: true
+  #GITHUB_TOKEN:
+  #  required: true
 
 runs:
   using: "composite"
@@ -87,7 +87,7 @@ runs:
     - name: Install Tectonic and dependencies
       uses: wtfjoke/setup-tectonic@v3
       with:
-        github-token: ${{ inputs.GITHUB_TOKEN }}
+        # github-token: ${{ inputs.GITHUB_TOKEN }}
         biber-version: '2.17'
         # Add additional LaTeX packages if needed
         #packages: |
@@ -159,7 +159,7 @@ runs:
         name: LaTeX Build ${{ env.TIMESTAMP }}
         body_path: publish${{ inputs.output-folder }}/compilation_report.md
         draft: true
-        token: ${{ inputs.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
