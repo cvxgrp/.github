@@ -18,7 +18,7 @@ description: "Advanced LaTeX document compilation with error handling and artifa
 permissions:
   contents: write
   pages: write
-  id-token: write
+  #id-token: read
 
 
 inputs:
@@ -159,7 +159,7 @@ runs:
         name: LaTeX Build ${{ env.TIMESTAMP }}
         body_path: publish${{ inputs.output-folder }}/compilation_report.md
         draft: true
-        token: ${{ secrets.GITHUB_TOKEN }}
+        #token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
