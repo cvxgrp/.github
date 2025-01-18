@@ -34,7 +34,10 @@ inputs:
     required: false
     default: '3.12'
 
+
 runs:
+
+
   using: "composite"
   steps:
     # This is not using any github-token:
@@ -74,6 +77,7 @@ runs:
         uv run pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
 
     - name: Upload documentation
+      if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
       uses: actions/upload-artifact@v4
       with:
         name: pdoc

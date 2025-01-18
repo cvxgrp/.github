@@ -96,6 +96,7 @@ runs:
         fi
 
     - name: Upload HTML artifacts
+      if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
       uses: actions/upload-artifact@v4
       with:
         name: marimo

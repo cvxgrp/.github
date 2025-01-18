@@ -32,6 +32,7 @@ runs:
       run: touch .book/.nojekyll
 
     - name: GitHub Pages action
+      if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages          # The branch the action should deploy to.

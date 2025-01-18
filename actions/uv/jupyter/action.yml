@@ -72,6 +72,7 @@ runs:
 
     # Upload the book
     - name: Archive book
+      if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
       uses: actions/upload-artifact@v4
       with:
         name: book
