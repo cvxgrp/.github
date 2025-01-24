@@ -22,6 +22,11 @@ inputs:
   url:
     description: 'url of pypi'
     required: true
+  python-version:
+    description: 'Python version to use for building'
+    type: string
+    required: false
+    default: '3.12'
 
 runs:
   using: "composite"
@@ -32,6 +37,11 @@ runs:
       with:
         name: dist
         path: dist
+
+    - name: "Set up Python"
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
