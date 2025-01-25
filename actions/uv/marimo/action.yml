@@ -44,17 +44,12 @@ runs:
         # "Verify UV installation"
         uv --version  # Should print the installed version of UV
 
-    - name: "Set up Python"
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ inputs.python-version }}
-
     - name: Set up Python environment with uv
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
         # Create venv
-        uv venv
+        uv venv --python ${{ inputs.python-version }}
         # Add venv to PATH
         echo ".venv/bin" >> $GITHUB_PATH
         uv sync --all-extras --dev --frozen
