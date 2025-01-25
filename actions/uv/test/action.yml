@@ -55,7 +55,7 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         # Create venv
-        uv venv --python $${ inputs.python-version }}
+        uv venv --python ${{ inputs.python-version }}
         # Add venv to PATH
         echo ".venv/bin" >> $GITHUB_PATH
         uv sync --all-extras --dev --frozen
