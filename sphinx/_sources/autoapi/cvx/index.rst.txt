@@ -1,0 +1,15 @@
+cvx
+===
+
+.. py:module:: cvx
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/cvx/hello/index
+
+

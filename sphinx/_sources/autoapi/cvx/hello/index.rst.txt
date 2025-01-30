@@ -1,0 +1,19 @@
+cvx.hello
+=========
+
+.. py:module:: cvx.hello
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cvx.hello.main
+
+
+Module Contents
+---------------
+
+.. py:function:: main()
+
