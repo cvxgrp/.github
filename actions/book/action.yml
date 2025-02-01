@@ -14,7 +14,10 @@
 name: Build the book
 description: "Build the book"
 
-
+permissions:
+  contents: write
+  pages: write
+  
 runs:
   using: "composite"
 
