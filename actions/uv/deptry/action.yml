@@ -31,6 +31,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout [${{ github.repository }}]
+      uses: actions/checkout@v4
+
     # This is not using any github-token:
     - name: Install uv
       shell: bash
