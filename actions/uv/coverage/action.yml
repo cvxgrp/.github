@@ -32,6 +32,10 @@ inputs:
     description: 'Python version to use'
     required: false
     default: '3.12'
+  coveralls:
+    description: 'Upload to coverallsapp'
+    required: false
+    default: true
 
 runs:
   using: "composite"
@@ -95,3 +99,10 @@ runs:
         name: tests
         path: ${{ inputs.working-directory }}/artifacts/tests
         retention-days: 1
+
+    - name: Coveralls GitHub Action
+      if: ${{ inputs.coveralls == 'true' }}
+      uses: coverallsapp/github-action@v2
+      with:
+        files: artifacts/tests/coverage/coverage.info
+        format: lcov
