@@ -38,7 +38,7 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+
     # This is not using any github-token:
     - name: Install uv
       shell: bash
