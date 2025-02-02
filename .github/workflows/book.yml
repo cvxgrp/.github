@@ -8,9 +8,6 @@ jobs:
       runs-on: "ubuntu-latest"
 
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
-
         - uses: ./actions/uv/marimo
           with:
             working-directory: .github/hello-world
@@ -18,9 +15,6 @@ jobs:
     pdoc:
       runs-on: "ubuntu-latest"
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
-
         - uses: ./actions/uv/pdoc
           with:
             working-directory: .github/hello-world
@@ -28,9 +22,6 @@ jobs:
     sphinx:
       runs-on: "ubuntu-latest"
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
-
         - uses: ./actions/uv/sphinx
           with:
             working-directory: .github/hello-world
@@ -38,9 +29,6 @@ jobs:
     test:
       runs-on: "ubuntu-latest"
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
-
         - uses: ./actions/uv/coverage
           with:
             working-directory: .github/hello-world
@@ -48,9 +36,6 @@ jobs:
     jupyter:
       runs-on: "ubuntu-latest"
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
-
         - uses: ./actions/uv/jupyter
           with:
             working-directory: .github/hello-world
@@ -63,7 +48,7 @@ jobs:
         contents: write
 
       steps:
-        - name: Checkout [${{ github.repository }}]
-          uses: actions/checkout@v4
+        #- name: Checkout [${{ github.repository }}]
+        #  uses: actions/checkout@v4
 
         - uses: ./actions/book

@@ -13,9 +13,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout [${{ github.repository }}]
-        uses: actions/checkout@v4
-
       - name: Test a project
         uses: ./actions/uv/test
         with:
