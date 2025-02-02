@@ -38,6 +38,9 @@ jobs:
     test:
       runs-on: "ubuntu-latest"
       steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
+
         - uses: ./actions/uv/coverage
           with:
             working-directory: .github/hello-world
@@ -45,6 +48,9 @@ jobs:
     jupyter:
       runs-on: "ubuntu-latest"
       steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
+
         - uses: ./actions/uv/jupyter
           with:
             working-directory: .github/hello-world
