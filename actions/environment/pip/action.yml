@@ -52,3 +52,14 @@ runs:
         uv pip install -r requirements.txt
 
         #uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
+
+    - name: Activate the environment and ensure pip is installed
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Activate the virtual environment
+        # source .venv/bin/activate
+        # Ensure pip is installed and up-to-date
+        python -m ensurepip --upgrade
+        # Confirm python and pip are from the virtual environment
+        python -m pip --version
