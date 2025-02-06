@@ -1,0 +1,97 @@
+#  Copyright 2023 Stanford University Convex Optimization Group
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+name: Build Environment
+description: "Build the environment using pyproject.toml and uv"
+
+inputs:
+  working-directory:
+    description: 'Directory where the Python project is located'
+    required: false
+    default: '.'
+  python-version:
+    description: 'The Python we shall use'
+    required: false
+    default: '3.12'
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Checkout [${{ github.repository }}]
+      uses: actions/checkout@v4
+
+    # Install UV
+    - name: Install UV (Unix)
+      if: runner.os == 'Linux' || runner.os == 'macOS'
+      shell: bash
+      run: |
+        set -eo pipefail
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        export PATH="$HOME/.local/bin:$PATH"
+        uv --version
+        uv --help > /dev/null
+
+    - name: Install UV (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        irm https://astral.sh/uv/install.ps1 | iex
+        $uvPath = "C:\Users\runneradmin\.local\bin"
+        Add-Content $env:GITHUB_PATH $uvPath
+        $env:Path = "$uvPath;" + $env:Path
+        uv --version
+        uv --help > $null
+
+    - name: Set up Python environment with uv
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Create virtual environment with uv
+        uv venv --python ${{ inputs.python-version }}
+        # Add venv to PATH for the current session
+        echo ".venv/bin" >> $GITHUB_PATH
+
+    - name: Activate the environment and ensure pip is installed
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Ensure pip is installed and up-to-date
+        python -m ensurepip --upgrade
+        # Confirm python and pip are from the virtual environment
+        python -m pip --version
+
+    - name: Check dependency file compatibility
+      shell: bash
+      run: |
+        if [ -f pyproject.toml ] && [ -f requirements.txt ]; then
+          echo "Error: Both pyproject.toml and requirements.txt exist. Please use only one dependency specification method."
+          exit 1
+        fi
+
+    # run if the file pyproject.toml exists
+    - name: Install the dependencies
+      if: hashFiles('pyproject.toml') != ''
+      shell: bash
+      run : |
+        # Sync environment (install dependencies)
+        uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
+
+    # run if the file pyproject.toml exists
+    - name: Install the dependencies
+      if: hashFiles('requirements.txt') != ''
+      shell: bash
+      run : |
+        # Sync environment (install dependencies)
+        uv pip install -r requirements.txt
