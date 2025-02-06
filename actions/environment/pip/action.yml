@@ -48,19 +48,7 @@ runs:
         uv venv --python ${{ inputs.python-version }}
         # Add venv to PATH for the current session
         echo ".venv/bin" >> $GITHUB_PATH
-        # Sync environment (install dependencies)
-        uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
+        # Install dependencies (install dependencies)
+        uv pip install -r requirements.txt
 
-    - name: Activate the environment and ensure pip is installed
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: |
-        # Activate the virtual environment
-        # source .venv/bin/activate
-        # Ensure pip is installed and up-to-date
-        which python
-        python -m ensurepip --upgrade
-        # Confirm python and pip are from the virtual environment
-        which python
-        which pip
-        python -m pip --version
+        #uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
