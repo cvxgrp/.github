@@ -35,10 +35,21 @@ runs:
     - name: Install uv
       shell: bash
       run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.local/bin" >> $GITHUB_PATH   # Add UV binary directory to PATH in GitHub Actions environment
-        export PATH="$HOME/.local/bin:$PATH"      # Add UV binary directory to PATH for the current shell session
-        uv --version  # Verify UV installation
+        set -eo pipefail
+        if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_OS" == "macOS" ]; then
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.local/bin:$PATH"
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          pwsh -Command "irm https://astral.sh/uv/install.ps1 | iex"
+          echo "$APPDATA\Python\Scripts" >> $GITHUB_PATH
+          export PATH="$APPDATA/Python/Scripts:$PATH"
+        else
+          echo "Unsupported operating system: $RUNNER_OS"
+          exit 1
+        fi
+        uv --version
+        uv --help > /dev/null
 
     - name: Set up Python environment with uv
       shell: bash
