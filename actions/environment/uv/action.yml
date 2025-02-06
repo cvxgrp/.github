@@ -56,9 +56,9 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         # Activate the virtual environment
-        source .venv/bin/activate
+        # source .venv/bin/activate
         # Ensure pip is installed and up-to-date
-        #which python
+        which python
         python -m ensurepip --upgrade
         # Confirm python and pip are from the virtual environment
         which python
