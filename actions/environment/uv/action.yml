@@ -32,31 +32,27 @@ runs:
       uses: actions/checkout@v4
 
     # Install UV
-    - name: Install uv
+    - name: Install UV (Unix)
+      if: runner.os == 'Linux' || runner.os == 'macOS'
       shell: bash
       run: |
         set -eo pipefail
-        if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_OS" == "macOS" ]; then
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-          export PATH="$HOME/.local/bin:$PATH"
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          pwsh -Command "irm https://astral.sh/uv/install.ps1 | iex"
-          WINDOWS_UV_PATH="C:\\Users\\runneradmin\\.local\\bin"
-          echo "$WINDOWS_UV_PATH" >> $GITHUB_PATH
-          export PATH="$WINDOWS_UV_PATH:$PATH"
-          # Reload PATH in the current shell for Windows
-          eval "$(echo 'export PATH="'"$WINDOWS_UV_PATH"':$PATH"')"
-        else
-          echo "Unsupported operating system: $RUNNER_OS"
-          exit 1
-        fi
-        # Small delay to allow PATH to update
-        sleep 2
-        # Print PATH for debugging
-        echo "Current PATH: $PATH"
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        export PATH="$HOME/.local/bin:$PATH"
         uv --version
         uv --help > /dev/null
+
+    - name: Install UV (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        irm https://astral.sh/uv/install.ps1 | iex
+        $uvPath = "C:\Users\runneradmin\.local\bin"
+        Add-Content $env:GITHUB_PATH $uvPath
+        $env:Path = "$uvPath;" + $env:Path
+        uv --version
+        uv --help > $null
 
     - name: Set up Python environment with uv
       shell: bash
