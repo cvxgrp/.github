@@ -27,6 +27,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Update pip
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        # Ensure pip is installed and up-to-date
+        python -m ensurepip --upgrade
+        
     - name: Install and run deptry
       shell: bash
       working-directory: ${{ inputs.working-directory }}
