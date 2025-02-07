@@ -42,7 +42,7 @@ runs:
         echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH
 
         # Add uv and .venv to PATH
-        export PATH="${{ github.workspace }}/.venv/bin:$HOME/.local/bin:$PATH"
+        # export PATH="${{ github.workspace }}/.venv/bin:$HOME/.local/bin:$PATH"
 
         # Verify uv installation
         uv --version
@@ -81,15 +81,15 @@ runs:
         uv venv --python ${{ inputs.python-version }}
 
         # Modify PATH to only include the virtual environment's Scripts directory
-        $env:Path = "${{ github.workspace }}\.venv\Scripts;" + $env:Path
+        # $env:Path = "${{ github.workspace }}\.venv\Scripts;" + $env:Path
         Add-Content $env:GITHUB_PATH ${{ github.workspace }}\.venv\Scripts
 
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
         # Verify that only the virtual environment's Python is being used
-        where python  
-        
+        where python
+
     - name: Install pip
       shell: bash
       run: |
