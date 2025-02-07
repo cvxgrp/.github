@@ -81,16 +81,17 @@ runs:
         uv venv --python ${{ inputs.python-version }}
 
         # Modify PATH to only include the virtual environment's Scripts directory
-        $env:Path = "$PWD\.venv\Scripts;" + $env:Path
-
+        $env:Path = "${{ github.workspace }}\.venv\Scripts;" + $env:Path
+        Add-Content $env:GITHUB_PATH ${{ github.workspace }}\.venv\Scripts
+        
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
         # Display the current PATH environment variable
-        Write-Host "Current PATH: $env:Path"
+        #Write-Host "Current PATH: $env:Path"
 
         # Check the current python location
-        Write-Host "Which Python is being used? - $(where python)"
+        #Write-Host "Which Python is being used? - $(where python)"
 
         # Ensure pip is installed and up-to-date in the virtual environment
         python -m ensurepip --upgrade
