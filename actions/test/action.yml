@@ -32,9 +32,10 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         which python
-        which pip
         echo $PATH
         ls -all
         ls -all .venv/bin
+        # Ensure pip is installed and up-to-date
+        python -m ensurepip --upgrade
         python -m pip install --no-cache-dir pytest
         pytest ${{ inputs.tests-folder }}
