@@ -68,6 +68,10 @@ jobs:
         - name: Checkout [${{ github.repository }}]
           uses: actions/checkout@v4
 
+        - uses: ./actions/environment
+          with:
+            working-directory: '.github/hello-world'
+
         - uses: ./actions/jupyter
           with:
             working-directory: .github/hello-world
