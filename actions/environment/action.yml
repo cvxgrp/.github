@@ -88,7 +88,7 @@ runs:
 
         # Display the current PATH environment variable
         Write-Host "Current PATH: $env:Path"
-        
+
         # Check the current python location
         Write-Host "Which Python is being used? - $(where python)"
 

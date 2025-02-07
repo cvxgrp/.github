@@ -33,13 +33,13 @@ runs:
       run: |
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
-    
+
     - name: Windows
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
         where python
-        
+
     - name: Run tests
       shell: bash
       working-directory: ${{ inputs.working-directory }}
