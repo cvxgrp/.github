@@ -59,11 +59,11 @@ runs:
         which python  # This should show .venv/bin/python
 
         # Ensure pip is installed and up-to-date
-        python -m ensurepip --upgrade
+        # python -m ensurepip --upgrade
 
         # Confirm the Python and pip versions from the virtual environment
-        python --version
-        python -m pip --version
+        # python --version
+        # python -m pip --version
 
       # Install UV (Windows)
     - name: Install UV (Windows)
@@ -87,12 +87,12 @@ runs:
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
-        # Display the current PATH environment variable
-        #Write-Host "Current PATH: $env:Path"
-
-        # Check the current python location
-        #Write-Host "Which Python is being used? - $(where python)"
-
+        # Verify that only the virtual environment's Python is being used
+        where python  
+        
+    - name: Install pip
+      shell: bash
+      run: |
         # Ensure pip is installed and up-to-date in the virtual environment
         python -m ensurepip --upgrade
 
