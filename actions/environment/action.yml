@@ -58,11 +58,11 @@ runs:
         which python  # This should show .venv/bin/python
 
         # Ensure pip is installed and up-to-date
-        python -m ensurepip --upgrade
+        #python -m ensurepip --upgrade
 
-        # Confirm the Python and pip versions from the virtual environment
-        python --version
-        python -m pip --version
+        ## Confirm the Python and pip versions from the virtual environment
+        #python --version
+        #python -m pip --version
 
       # Install UV (Windows)
     - name: Install UV (Windows)
@@ -89,11 +89,11 @@ runs:
         where python
 
         # Ensure pip is installed and up-to-date in the virtual environment
-        python -m ensurepip --upgrade
+        # python -m ensurepip --upgrade
 
         # Confirm Python and pip versions from the virtual environment
-        python --version
-        python -m pip --version
+        # python --version
+        # python -m pip --version
 
         #- name: Set up Python environment with uv
         #  shell: bash
@@ -103,6 +103,18 @@ runs:
         #    uv venv --python ${{ inputs.python-version }}
         #    # Add venv to PATH for the current session
         #    echo ".venv/bin" >> $GITHUB_PATH
+
+    - name: Install pip
+      shell: bash
+      run: | 
+        uv --version
+        
+        # Ensure pip is installed and up-to-date
+        python -m ensurepip --upgrade
+
+        # Confirm the Python and pip versions from the virtual environment
+        python --version
+        python -m pip --version
 
     - name: Check dependency file compatibility
       shell: bash
