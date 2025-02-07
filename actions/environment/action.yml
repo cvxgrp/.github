@@ -122,12 +122,3 @@ runs:
         uv --version
         # Sync environment (install dependencies)
         pip install -r requirements.txt
-
-    #- name: Activate the environment and ensure pip is installed
-    #  shell: bash
-    #  working-directory: ${{ inputs.working-directory }}
-    #  run: |
-        # Ensure pip is installed and up-to-date
-        # python -m ensurepip --upgrade
-        # Confirm python and pip are from the virtual environment
-        #python -m pip --version
