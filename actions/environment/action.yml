@@ -83,10 +83,6 @@ runs:
         # Ensure pip is installed and up-to-date in the virtual environment
         python -m ensurepip --upgrade
 
-        # Confirm Python and pip versions from the virtual environment
-        python --version
-        python -m pip --version
-
     - name: Check dependency file compatibility
       shell: bash
       run: |
@@ -100,17 +96,14 @@ runs:
       if: hashFiles('pyproject.toml') != ''
       shell: bash
       run : |
-        which uv
-        uv --version
         # Sync environment (install dependencies)
         uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
+
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
       if: hashFiles('requirements.txt') != ''
       shell: bash
       run : |
-        which uv
-        uv --version
         # Sync environment (install dependencies)
         pip install -r requirements.txt
