@@ -35,5 +35,6 @@ runs:
         which pip
         echo $PATH
         ls -all
+        ls -all .venv/bin
         python -m pip install --no-cache-dir pytest
         pytest ${{ inputs.tests-folder }}
