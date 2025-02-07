@@ -75,26 +75,26 @@ runs:
         $env:Path = "$uvPath;" + $env:Path
         uv --version
         uv --help > $null
-    
+
         # Create virtual environment with uv
         uv venv --python ${{ inputs.python-version }}
-    
+
         # Modify PATH to only include the virtual environment's Scripts directory
         $env:PATH = "$PWD\.venv\Scripts;" + $env:PATH
-    
+
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
-    
+
         # Ensure only the virtual environment's Python is used (no system Python)
         where python
-    
+
         # Ensure pip is installed and up-to-date in the virtual environment
         python -m ensurepip --upgrade
-    
+
         # Confirm Python and pip versions from the virtual environment
         python --version
         python -m pip --version
-    
+
         #- name: Set up Python environment with uv
         #  shell: bash
         #  working-directory: ${{ inputs.working-directory }}
