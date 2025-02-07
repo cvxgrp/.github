@@ -106,9 +106,9 @@ runs:
 
     - name: Install pip
       shell: bash
-      run: | 
+      run: |
         uv --version
-        
+
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
 
