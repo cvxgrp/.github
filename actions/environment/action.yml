@@ -83,7 +83,7 @@ runs:
         # Modify PATH to only include the virtual environment's Scripts directory
         $env:Path = "${{ github.workspace }}\.venv\Scripts;" + $env:Path
         Add-Content $env:GITHUB_PATH ${{ github.workspace }}\.venv\Scripts
-        
+
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
