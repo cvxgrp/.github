@@ -59,7 +59,7 @@ runs:
 
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
-        
+
         # Upgrade pip in the virtual environment
         # python -m pip install --upgrade pip
 
