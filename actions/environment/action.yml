@@ -81,7 +81,7 @@ runs:
         uv venv --python ${{ inputs.python-version }}
 
         # Modify PATH to only include the virtual environment's Scripts directory
-        $env:PATH = "$env:CD\.venv\Scripts;" + $env:PATH
+        $env:PATH = "$env:$PWD\.venv\Scripts;" + $env:PATH
 
         # Unset PYTHONHOME to avoid any system Python being used
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
