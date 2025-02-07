@@ -106,4 +106,4 @@ runs:
       shell: bash
       run : |
         # Sync environment (install dependencies)
-        pip install -r requirements.txt
+        uv pip install -r requirements.txt
