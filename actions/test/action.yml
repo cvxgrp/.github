@@ -38,6 +38,7 @@ runs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
+        Write-Host "Current PATH: $env:Path"
         where python
 
     - name: Run tests
