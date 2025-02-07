@@ -62,10 +62,11 @@ runs:
         $uvPath = "C:\Users\runneradmin\.local\bin"
         Add-Content $env:GITHUB_PATH $uvPath
 
-        export PATH="$HOME/.local/bin:$PATH"
+        # GITHUB_PATH works for other jobs. The path is set here...
+        # export PATH="$HOME/.local/bin:$PATH"
 
-        uv --version
-        uv --help > $null
+        .local\bin\uv --version
+        .local\bin\uv --help > $null
 
         # Modify PATH to only include the virtual environment's Scripts directory
         Add-Content $env:GITHUB_PATH ${{ github.workspace }}\.venv\Scripts
