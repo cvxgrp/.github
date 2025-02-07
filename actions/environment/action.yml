@@ -45,8 +45,8 @@ runs:
         # export PATH="${{ github.workspace }}/.venv/bin:$HOME/.local/bin:$PATH"
 
         # Verify uv installation
-        uv --version
-        uv --help > /dev/null
+        #uv --version
+        #uv --help > /dev/null
 
         # Ensure the venv/bin is first in the PATH
         unset PYTHONHOME  # Unset the PYTHONHOME environment variable
