@@ -121,7 +121,7 @@ runs:
         which uv
         uv --version
         # Sync environment (install dependencies)
-        uv pip install -r requirements.txt
+        pip install -r requirements.txt
 
     #- name: Activate the environment and ensure pip is installed
     #  shell: bash
