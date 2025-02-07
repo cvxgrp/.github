@@ -40,7 +40,7 @@ runs:
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.local/bin" >> $GITHUB_PATH
         # Add uv to PATH
-        export PATH="$HOME/.local/bin:$PATH"
+        export PATH=""${{ github.workspace }}/.venv/bin:$HOME/.local/bin:$PATH"
 
         # Verify uv installation
         uv --version
@@ -50,7 +50,6 @@ runs:
         uv venv --python ${{ inputs.python-version }}
 
         # Ensure the venv/bin is first in the PATH
-        export PATH="$PWD/.venv/bin:$PATH"
         unset PYTHONHOME  # Unset the PYTHONHOME environment variable
                           # if set to avoid any system Python fallback
 
