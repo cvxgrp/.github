@@ -49,14 +49,14 @@ runs:
         uv --help > /dev/null
 
         # Create virtual environment with uv
-        uv venv --python ${{ inputs.python-version }}
+        # uv venv --python ${{ inputs.python-version }}
 
         # Ensure the venv/bin is first in the PATH
         unset PYTHONHOME  # Unset the PYTHONHOME environment variable
                           # if set to avoid any system Python fallback
 
         # Verify that only the virtual environment's Python is being used
-        which python  # This should show .venv/bin/python
+        # which python  # This should show .venv/bin/python
 
         # Ensure pip is installed and up-to-date
         # python -m ensurepip --upgrade
@@ -73,12 +73,12 @@ runs:
         irm https://astral.sh/uv/install.ps1 | iex
         $uvPath = "C:\Users\runneradmin\.local\bin"
         Add-Content $env:GITHUB_PATH $uvPath
-        $env:Path = "$uvPath;" + $env:Path
+        #$env:Path = "$uvPath;" + $env:Path
         uv --version
         uv --help > $null
 
         # Create virtual environment with uv
-        uv venv --python ${{ inputs.python-version }}
+        # uv venv --python ${{ inputs.python-version }}
 
         # Modify PATH to only include the virtual environment's Scripts directory
         # $env:Path = "${{ github.workspace }}\.venv\Scripts;" + $env:Path
@@ -88,11 +88,14 @@ runs:
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
         # Verify that only the virtual environment's Python is being used
-        where python
+        # where python
 
-    - name: Install pip
+    - name: Install pip and create venv
       shell: bash
       run: |
+        # Create virtual environment with uv
+        uv venv --python ${{ inputs.python-version }}
+
         # Ensure pip is installed and up-to-date in the virtual environment
         python -m ensurepip --upgrade
 
