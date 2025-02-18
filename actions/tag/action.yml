@@ -10,9 +10,9 @@ inputs:
     required: false
     default: 'true'
 
-outputs:
-  new_tag:
-    description: "New tag"
+#outputs:
+#  new_tag:
+#    description: "New tag"
 
 runs:
   using: "composite"
@@ -38,8 +38,8 @@ runs:
     - name: Set new_tag output
       shell: bash
       run: |
-        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
-        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
+        echo "NEW_TAG=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
+        echo "NEW_TAG=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
 
     # -----------------------------------------------------------------------------
     # Step 3: Install dependencies (hatch for packaging)
@@ -48,7 +48,7 @@ runs:
       if: inputs.build_package == 'true'
       shell: bash
       run: |
-        echo "${{ new_tag }}"
+        echo "Tag from previous step: $NEW_TAG"
         python -m pip install --upgrade hatch
 
     # -----------------------------------------------------------------------------
