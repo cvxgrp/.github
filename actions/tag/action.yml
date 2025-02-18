@@ -10,8 +10,8 @@ inputs:
     required: false
     default: 'true'
 
-#outputs:
-#  new_tag:
+outputs:
+  new_tag: ${{ steps.tag_version.outputs.new_tag }}
 #    description: "New tag"
 
 runs:
