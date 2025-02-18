@@ -10,6 +10,10 @@ inputs:
     required: false
     default: 'true'
 
+outputs:
+  new_tag:
+    description: "New tag"
+
 runs:
   using: "composite"
   steps:
@@ -20,13 +24,22 @@ runs:
       uses: actions/checkout@v4
 
     # -----------------------------------------------------------------------------
-    # Step 2: Bump version and tag
+    # Step 2a: Bump version and tag
     # -----------------------------------------------------------------------------
     - name: Bump version and tag
       id: tag_version
       uses: mathieudutour/github-tag-action@v6.2
       with:
         github_token: ${{ inputs.github_token }}
+
+    # -----------------------------------------------------------------------------
+    # Step 2b: Set output for new_tag
+    # -----------------------------------------------------------------------------
+    - name: Set new_tag output
+      shell: bash
+      run: |
+        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
+        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
 
     # -----------------------------------------------------------------------------
     # Step 3: Install dependencies (hatch for packaging)
