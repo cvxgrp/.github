@@ -11,8 +11,8 @@ inputs:
     default: 'true'
 
 outputs:
-  new_tag: ${{ steps.tag_version.outputs.new_tag }}
-#    description: "New tag"
+  new_tag:
+    description: "New tag"
 
 runs:
   using: "composite"
@@ -40,6 +40,8 @@ runs:
       run: |
         echo "NEW_TAG=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
         echo "NEW_TAG=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
+        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_ENV
+        echo "new_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
 
     # -----------------------------------------------------------------------------
     # Step 3: Install dependencies (hatch for packaging)
