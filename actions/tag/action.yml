@@ -48,6 +48,7 @@ runs:
       if: inputs.build_package == 'true'
       shell: bash
       run: |
+        echo "${{ new_tag }}"
         python -m pip install --upgrade hatch
 
     # -----------------------------------------------------------------------------
