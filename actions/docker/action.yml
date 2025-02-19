@@ -1,0 +1,63 @@
+name: 'Build and Push Docker Image'
+description: 'Builds and pushes a Docker image using Podman to GitHub Container Registry (GHCR).'
+inputs:
+  repository:
+    description: 'The GitHub repository name (e.g., owner/repo).'
+    required: true
+  tag:
+    description: 'The tag to use for the Docker image.'
+    required: true
+  dockerfile-path:
+    description: 'Path to the Dockerfile.'
+    required: false
+    default: 'docker/Dockerfile'
+
+runs:
+  using: 'composite'
+  steps:
+    # -----------------------------------------------------------------------------
+    # Step 1: Output the generated tag
+    # -----------------------------------------------------------------------------
+    - name: Output the generated tag
+      shell: bash
+      run: |
+        echo "Github actor: ${{ github.actor }}"
+        echo "GENERATED TAG: ${{ inputs.tag }}"
+
+    # -----------------------------------------------------------------------------
+    # Step 2: Install Podman
+    # -----------------------------------------------------------------------------
+    - name: Install Podman
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y podman
+
+    # -----------------------------------------------------------------------------
+    # Step 3: Login to GitHub Container Registry
+    # -----------------------------------------------------------------------------
+    - name: Login to GitHub Container Registry
+      shell: bash
+      run: |
+        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+    # -----------------------------------------------------------------------------
+    # Step 4: Build container image
+    # -----------------------------------------------------------------------------
+    - name: Build container image
+      shell: bash
+      run: |
+        ls -all
+        pwd
+        podman build \
+          --tag ghcr.io/${{ inputs.repository }}:${{ inputs.tag }} \
+          -f ${{ inputs.dockerfile-path }} \
+          .
+
+    # -----------------------------------------------------------------------------
+    # Step 5: Push container image
+    # -----------------------------------------------------------------------------
+    - name: Push container image
+      shell: bash
+      run: |
+        podman push ghcr.io/${{ inputs.repository }}:${{ inputs.tag }}
