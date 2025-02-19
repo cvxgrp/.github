@@ -16,9 +16,6 @@ outputs:
     value: ${{ steps.tag_version.outputs.new_tag }}
 
 runs:
-  #outputs:
-  #  new_tag: ${{ steps.tag_version.outputs.new_tag }}
-
   using: "composite"
   steps:
     # -----------------------------------------------------------------------------
@@ -28,7 +25,7 @@ runs:
       uses: actions/checkout@v4
 
     # -----------------------------------------------------------------------------
-    # Step 2a: Bump version and tag
+    # Step 2: Bump version and tag
     # -----------------------------------------------------------------------------
     - name: Bump version and tag
       id: tag_version
@@ -37,25 +34,12 @@ runs:
         github_token: ${{ inputs.github_token }}
 
     # -----------------------------------------------------------------------------
-    # Step 2b: Set output for new_tag and environment variable
-    # -----------------------------------------------------------------------------
-    - name: Set new_tag output and environment variable
-      shell: bash
-      id: update_tag
-      run: |
-        NEW_TAG="${{ steps.tag_version.outputs.new_tag }}"
-        echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV  # Set the environment variable for later steps
-        echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT  # Set the output for downstream jobs
-        echo "::set-output name=tag::$NEW_TAG"
-    # -----------------------------------------------------------------------------
     # Step 3: Install dependencies (hatch for packaging)
     # -----------------------------------------------------------------------------
     - name: Install dependencies
       if: inputs.build_package == 'true'
       shell: bash
       run: |
-        echo "Tag from previous step: $NEW_TAG"
-        echo "Tag from previous step with steps: ${{ steps.update_tag.outputs.tag }}"
         python -m pip install --upgrade hatch
 
     # -----------------------------------------------------------------------------
@@ -65,8 +49,8 @@ runs:
       if: inputs.build_package == 'true'
       shell: bash
       run: |
-        echo "Updating version to $NEW_TAG"
-        sed -i "s/0.0.0/$NEW_TAG/" pyproject.toml
+        echo "Updating version to ${{ steps.tag_version.outputs.new_tag }}"
+        sed -i "s/0.0.0/${{ steps.tag_version.outputs.new_tag }}/" pyproject.toml
 
     # -----------------------------------------------------------------------------
     # Step 5: Build the package
@@ -75,7 +59,6 @@ runs:
       if: inputs.build_package == 'true'
       shell: bash
       run: |
-        echo "Building package for version: $NEW_TAG"
         hatch build
 
     # -----------------------------------------------------------------------------
@@ -104,7 +87,7 @@ runs:
       if: inputs.build_package != 'true'
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: $NEW_TAG
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
         generate_release_notes: true
 
     - name: Debug Output Tag
