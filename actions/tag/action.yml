@@ -13,6 +13,7 @@ inputs:
 outputs:
   tag:
     description: 'A new tag'
+    value: ${{ steps.tag_version.outputs.new_tag }}
 
 runs:
   #outputs:
