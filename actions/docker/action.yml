@@ -11,6 +11,9 @@ inputs:
     description: 'Path to the Dockerfile.'
     required: false
     default: 'docker/Dockerfile'
+  github_token:
+    description: "GitHub token for authentication"
+    required: true
 
 runs:
   using: 'composite'
@@ -39,7 +42,7 @@ runs:
     - name: Login to GitHub Container Registry
       shell: bash
       run: |
-        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        podman login ghcr.io -u ${{ github.actor }} -p ${{ inputs.github_token }}
 
     # -----------------------------------------------------------------------------
     # Step 4: Build container image
