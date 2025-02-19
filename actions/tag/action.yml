@@ -79,7 +79,7 @@ runs:
       if: inputs.build_package == 'true'
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: $NEW_TAG
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
         generate_release_notes: true
         files: dist/*
 
