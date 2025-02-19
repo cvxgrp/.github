@@ -40,6 +40,7 @@ runs:
     # -----------------------------------------------------------------------------
     - name: Set new_tag output and environment variable
       shell: bash
+      id: update_tag
       run: |
         NEW_TAG="${{ steps.tag_version.outputs.new_tag }}"
         echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV  # Set the environment variable for later steps
@@ -53,6 +54,7 @@ runs:
       shell: bash
       run: |
         echo "Tag from previous step: $NEW_TAG"
+        echo "${{ steps.update_tag.outputs.tag }}"
         python -m pip install --upgrade hatch
 
     # -----------------------------------------------------------------------------
