@@ -11,10 +11,13 @@ inputs:
     default: 'true'
 
 outputs:
-  new_tag:
-    description: "New tag"
+  tag:
+    description: 'A new tag'
 
 runs:
+  #outputs:
+  #  new_tag: ${{ steps.tag_version.outputs.new_tag }}
+
   using: "composite"
   steps:
     # -----------------------------------------------------------------------------
@@ -41,7 +44,7 @@ runs:
         NEW_TAG="${{ steps.tag_version.outputs.new_tag }}"
         echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV  # Set the environment variable for later steps
         echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT  # Set the output for downstream jobs
-
+        echo "::set-output name=tag::$NEW_TAG"
     # -----------------------------------------------------------------------------
     # Step 3: Install dependencies (hatch for packaging)
     # -----------------------------------------------------------------------------
