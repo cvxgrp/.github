@@ -54,7 +54,7 @@ runs:
       shell: bash
       run: |
         echo "Tag from previous step: $NEW_TAG"
-        echo "${{ steps.update_tag.outputs.tag }}"
+        echo "Tag from previous step with steps: ${{ steps.update_tag.outputs.tag }}"
         python -m pip install --upgrade hatch
 
     # -----------------------------------------------------------------------------
