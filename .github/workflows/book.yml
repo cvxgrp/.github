@@ -25,6 +25,16 @@ jobs:
 
         - uses: ./actions/pdoc
 
+    age:
+      runs-on: "ubuntu-latest"
+      steps:
+        - name: Checkout [${{ github.repository }}]
+          uses: actions/checkout@v4
+
+        - uses: ./actions/environment
+
+        - uses: ./actions/age
+
     sphinx:
       runs-on: "ubuntu-latest"
       steps:
