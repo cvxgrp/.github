@@ -150,7 +150,7 @@ runs:
 
         EOF
 
-        cat dependency-age.txt
+        cat artifacts/age/dependency-age.txt
 
     - name: Upload test results
       if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
