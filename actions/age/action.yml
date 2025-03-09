@@ -47,6 +47,8 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         python - <<EOF
+        import sys
+
         import requests
         import toml
         import re
