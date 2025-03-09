@@ -112,6 +112,7 @@ runs:
         # Verify installation
         echo "✅ Dependencies installed successfully"
         uv pip list | grep -v "^-" | wc -l | xargs -I{} echo "Total packages installed: {}"
+        which python
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies

@@ -47,6 +47,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
+        which python
         mkdir -p artifacts/pdoc
         python -m pip install --no-cache-dir pdoc
         pdoc -o artifacts/pdoc ${{ inputs.pdoc-arguments }} ${{ inputs.source-folder }}
