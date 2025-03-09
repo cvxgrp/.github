@@ -33,6 +33,7 @@ runs:
 
     # Install UV (Unix)
     - name: Install UV (Unix)
+      working-directory: ${{ inputs.working-directory }}
       if: runner.os == 'Linux' || runner.os == 'macOS'
       shell: bash
       run: |
@@ -48,6 +49,7 @@ runs:
 
       # Install UV (Windows)
     - name: Install UV (Windows)
+      working-directory: ${{ inputs.working-directory }}
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
@@ -63,6 +65,7 @@ runs:
 
     - name: Install pip and create venv
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         # Create virtual environment with uv
         uv venv --python ${{ inputs.python-version }}
@@ -72,6 +75,7 @@ runs:
 
     - name: Check dependency file compatibility
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         if [ -f pyproject.toml ] && [ -f requirements.txt ]; then
           echo "Error: Both pyproject.toml and requirements.txt exist. Please use only one dependency specification method."
@@ -80,6 +84,7 @@ runs:
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
+      working-directory: ${{ inputs.working-directory }}
       if: hashFiles('pyproject.toml') != ''
       shell: bash
       run : |
@@ -92,6 +97,7 @@ runs:
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
+      working-directory: ${{ inputs.working-directory }}
       if: hashFiles('requirements.txt') != ''
       shell: bash
       run : |
