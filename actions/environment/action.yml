@@ -114,6 +114,13 @@ runs:
         uv pip list | grep -v "^-" | wc -l | xargs -I{} echo "Total packages installed: {}"
         which python
 
+        # Set path for subsequent steps
+        echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        # For Windows compatibility
+        [ -d "$PWD/.venv/Scripts" ] && echo "$PWD/.venv/Scripts" >> $GITHUB_PATH
+
+        which python
+
     # run if the file pyproject.toml exists
     - name: Install the dependencies
       working-directory: ${{ inputs.working-directory }}
