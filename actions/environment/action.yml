@@ -39,13 +39,15 @@ runs:
       run: |
         set -eo pipefail
         curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        # echo "$HOME/.local/bin" >> $GITHUB_PATH
         echo "${{ inputs.working-directory }}/.venv/bin" >> $GITHUB_PATH
+        echo $GITHUB_PATH
 
         # Ensure the venv/bin is first in the PATH
         unset PYTHONHOME  # Unset the PYTHONHOME environment variable
                           # if set to avoid any system Python fallback
 
+        which python
 
       # Install UV (Windows)
     - name: Install UV (Windows)
