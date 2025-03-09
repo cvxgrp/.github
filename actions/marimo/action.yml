@@ -19,10 +19,6 @@ inputs:
     description: 'Source directory containing Marimo .py files'
     required: false
     default: 'book/marimo'
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
 
 
 runs:
@@ -30,26 +26,22 @@ runs:
   steps:
     - name: Update pip
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
 
     - name: Install marimo
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         python -m pip install --no-cache-dir marimo
 
     - name: Create output directory
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         mkdir -p artifacts/marimo
 
     - name: Convert Marimo files to HTML
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         if [ ! -d "${{ inputs.source_folder }}" ]; then
           echo "Error: Source directory ${{ inputs.source_folder }} does not exist"
@@ -76,5 +68,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: marimo
-        path: ${{ inputs.working-directory }}/artifacts/marimo
+        path: artifacts/marimo
         retention-days: 1

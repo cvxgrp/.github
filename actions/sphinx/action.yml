@@ -20,24 +20,18 @@ inputs:
     type: string
     required: false
     default: 'book/sphinx'
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
 
 runs:
   using: "composite"
   steps:
     - name: Update pip
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
 
     - name: Install and build Sphinx
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         which python
         which pip
@@ -50,5 +44,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: sphinx
-        path: ${{ inputs.working-directory }}/artifacts/sphinx
+        path: artifacts/sphinx
         retention-days: 1
