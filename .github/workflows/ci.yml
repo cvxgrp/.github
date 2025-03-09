@@ -23,3 +23,5 @@ jobs:
 
       - name: Test a project
         uses: ./actions/test
+        with:
+          tests-folder: 'src/tests'
