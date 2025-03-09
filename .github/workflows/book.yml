@@ -34,6 +34,8 @@ jobs:
         - uses: ./actions/environment
 
         - uses: ./actions/sphinx
+          with:
+            sphinx-folder: 'book/sphinx'
 
     test:
       runs-on: "ubuntu-latest"
