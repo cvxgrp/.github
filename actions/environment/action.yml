@@ -15,10 +15,6 @@ name: Build Environment
 description: "Build the environment using pyproject.toml and uv"
 
 inputs:
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
   python-version:
     description: 'The Python we shall use'
     required: false
