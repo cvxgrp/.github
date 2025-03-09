@@ -32,7 +32,7 @@ jobs:
         - uses: ./actions/pdoc
           with:
             working-directory: .github/hello-world
-            source-folder: '.github/hello-world/cvx'
+            source-folder: 'cvx'
 
     sphinx:
       runs-on: "ubuntu-latest"
