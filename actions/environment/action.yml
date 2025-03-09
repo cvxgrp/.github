@@ -70,7 +70,7 @@ runs:
         uv venv --python ${{ inputs.python-version }}
 
         # Ensure pip is installed and up-to-date in the virtual environment
-        python -m ensurepip --upgrade
+        # python -m ensurepip --upgrade
 
     - name: Check dependency file compatibility
       working-directory: ${{ inputs.working-directory }}
