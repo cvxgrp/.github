@@ -25,10 +25,6 @@ inputs:
     type: string
     required: false
     default: ''
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
 
 
 runs:
@@ -38,14 +34,12 @@ runs:
   steps:
     - name: Update pip
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
 
     - name: Install and build pdoc
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         mkdir -p artifacts/pdoc
         python -m pip install --no-cache-dir pdoc
@@ -56,5 +50,5 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: pdoc
-        path: ${{ inputs.working-directory }}/artifacts/pdoc
+        path: artifacts/pdoc
         retention-days: 1

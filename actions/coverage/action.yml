@@ -24,10 +24,6 @@ inputs:
     type: string
     required: false
     default: 'cvx'
-  working-directory:
-    description: 'Directory where the Python project is located'
-    required: false
-    default: '.'
   coveralls:
     description: 'Upload to coverallsapp'
     required: false
@@ -38,14 +34,12 @@ runs:
   steps:
     - name: Update pip
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         # Ensure pip is installed and up-to-date
         python -m ensurepip --upgrade
 
     - name: Run tests with coverage
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         # this should point to .venv/bin/python
         which python
@@ -77,7 +71,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: tests
-        path: ${{ inputs.working-directory }}/artifacts/tests
+        path: artifacts/tests
         retention-days: 1
 
     - name: Coveralls GitHub Action
