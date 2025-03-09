@@ -23,5 +23,3 @@ jobs:
 
       - name: Test a project
         uses: ./actions/test
-        with:
-          working-directory: .github/hello-world
