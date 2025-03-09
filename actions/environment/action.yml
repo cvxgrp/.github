@@ -62,6 +62,7 @@ runs:
         Remove-Item -Path Env:PYTHONHOME -ErrorAction SilentlyContinue
 
     - name: Install pip and create venv
+      working-directory: ${{ inputs.working-directory }}
       shell: bash
       run: |
         # Create virtual environment with uv
@@ -71,6 +72,7 @@ runs:
         python -m ensurepip --upgrade
 
     - name: Check dependency file compatibility
+      working-directory: ${{ inputs.working-directory }}
       shell: bash
       run: |
         if [ -f pyproject.toml ] && [ -f requirements.txt ]; then
@@ -80,6 +82,7 @@ runs:
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
+      working-directory: ${{ inputs.working-directory }}
       if: hashFiles('pyproject.toml') != ''
       shell: bash
       run : |
@@ -92,6 +95,7 @@ runs:
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
+      working-directory: ${{ inputs.working-directory }}
       if: hashFiles('requirements.txt') != ''
       shell: bash
       run : |
