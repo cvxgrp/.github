@@ -29,7 +29,6 @@ runs:
 
   steps:
     - name: Checkout [${{ github.repository }}]
-      working-directory: ${{ inputs.working-directory }}
       uses: actions/checkout@v4
 
     # Install UV (Unix)
