@@ -48,6 +48,7 @@ jobs:
         - uses: ./actions/coverage
           with:
             coveralls: 'false'
+            tests-folder: 'src/tests'
 
     jupyter:
       runs-on: "ubuntu-latest"
