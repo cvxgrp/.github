@@ -19,7 +19,6 @@ jobs:
 
       - uses: ./actions/environment
         with:
-          working-directory: '.github/hello-world'
           python-version:  ${{ matrix.python-version }}
 
       - name: Test a project

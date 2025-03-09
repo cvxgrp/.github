@@ -12,12 +12,8 @@ jobs:
           uses: actions/checkout@v4
 
         - uses: ./actions/environment
-          with:
-            working-directory: '.github/hello-world'
 
         - uses: ./actions/marimo
-          with:
-            working-directory: .github/hello-world
 
     pdoc:
       runs-on: "ubuntu-latest"
@@ -26,12 +22,8 @@ jobs:
           uses: actions/checkout@v4
 
         - uses: ./actions/environment
-          with:
-            working-directory: '.github/hello-world'
 
         - uses: ./actions/pdoc
-          with:
-            working-directory: .github/hello-world
 
     sphinx:
       runs-on: "ubuntu-latest"
@@ -40,12 +32,8 @@ jobs:
           uses: actions/checkout@v4
 
         - uses: ./actions/environment
-          with:
-            working-directory: '.github/hello-world'
 
         - uses: ./actions/sphinx
-          with:
-            working-directory: .github/hello-world
 
     test:
       runs-on: "ubuntu-latest"
@@ -54,12 +42,9 @@ jobs:
           uses: actions/checkout@v4
 
         - uses: ./actions/environment
-          with:
-            working-directory: '.github/hello-world'
 
         - uses: ./actions/coverage
           with:
-            working-directory: .github/hello-world
             coveralls: 'false'
 
     jupyter:
@@ -69,12 +54,8 @@ jobs:
           uses: actions/checkout@v4
 
         - uses: ./actions/environment
-          with:
-            working-directory: '.github/hello-world'
 
         - uses: ./actions/jupyter
-          with:
-            working-directory: .github/hello-world
 
     book:
       runs-on: "ubuntu-latest"

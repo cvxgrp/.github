@@ -11,12 +11,8 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: ./actions/environment
-        with:
-          working-directory: '.github/hello-world'
 
       - uses: ./actions/deptry
-        with:
-          working-directory: '.github/hello-world'
 
   pre-commit:
     runs-on: ubuntu-latest
