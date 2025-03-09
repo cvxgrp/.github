@@ -117,6 +117,7 @@ runs:
         # Set path for subsequent steps
         echo "$PWD/.venv/bin" >> $GITHUB_PATH
         echo $GITHUB_PATH
+        echo $HOME
 
         # For Windows compatibility
         [ -d "$PWD/.venv/Scripts" ] && echo "$PWD/.venv/Scripts" >> $GITHUB_PATH
