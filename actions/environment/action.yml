@@ -81,18 +81,37 @@ runs:
           exit 1
         fi
 
-    # run if the file pyproject.toml exists
-    - name: Install the dependencies
+    # Install dependencies from pyproject.toml
+    - name: Install dependencies from pyproject.toml
       working-directory: ${{ inputs.working-directory }}
-      if: hashFiles('pyproject.toml') != ''
+      if: hashFiles(format('{0}/pyproject.toml', inputs.working-directory)) != ''
       shell: bash
-      run : |
-        # Sync environment (install dependencies)
+      run: |
+        # Set up error handling
+        set -eo pipefail
+
+        echo "📦 Installing dependencies from pyproject.toml"
+
+        # Check for lockfile and install accordingly
         if [ -f "uv.lock" ]; then
-            uv sync --all-extras --dev --frozen  # Install all dependencies (including dev dependencies)
+          echo "Using lockfile (frozen installation)"
+          uv sync --all-extras --dev --frozen || {
+            echo "❌ Frozen installation failed. Your lockfile may be outdated."
+            echo "Try running 'uv lock' to update the lockfile or remove the --frozen flag."
+            exit 1
+          }
         else
-            uv sync --all-extras --dev  # Install all dependencies (including dev dependencies)
+          echo "No lockfile found, installing dependencies directly"
+          uv sync --all-extras --dev
+
+          # Create a lockfile for future builds if installation was successful
+          echo "Creating lockfile for future installations"
+          uv lock --all-extras --dev
         fi
+
+        # Verify installation
+        echo "✅ Dependencies installed successfully"
+        uv pip list | grep -v "^-" | wc -l | xargs -I{} echo "Total packages installed: {}"
 
     # run if the file pyproject.toml exists
     - name: Install the dependencies
