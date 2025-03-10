@@ -65,11 +65,11 @@ runs:
         # install pip
         #uv pip install pip
 
-        .venv/bin/python -m ensurepip --upgrade        # Ensures pip is installed
-        .venv/bin/python -m pip install --upgrade pip  # Upgrades pip inside venv
+        #.venv/bin/python -m ensurepip --upgrade        # Ensures pip is installed
+        #.venv/bin/python -m pip install --upgrade pip  # Upgrades pip inside venv
 
-        which python
-        which pip
+        #which python
+        #which pip
 
         # Ensure pip is installed and up-to-date in the virtual environment
         #python -m ensurepip --upgrade
