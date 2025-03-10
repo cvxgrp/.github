@@ -14,14 +14,19 @@
 name: 'Age of Dependencies'
 description: 'Run a check on the age of dependencies'
 
+inputs:
+  python-version:
+    description: 'The Python we shall use'
+    required: false
+    default: '3.12'
+
 runs:
   using: "composite"
   steps:
-    #- name: Update pip
-    #  shell: bash
-    #  run: |
-    #    # Ensure pip is installed and up-to-date
-    #    python -m ensurepip --upgrade
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
 
     - name: Install dependencies
       shell: bash
