@@ -34,5 +34,6 @@ runs:
       run: |
         which python
         which pip
+        ls -all .venv/bin
         python -m pip install --no-cache-dir deptry
         deptry ${{ inputs.source-folder }}
