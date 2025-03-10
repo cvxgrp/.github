@@ -32,5 +32,6 @@ runs:
     - name: Install and run deptry
       shell: bash
       run: |
+        which python
         python -m pip install --no-cache-dir deptry
         deptry ${{ inputs.source-folder }}
