@@ -33,5 +33,6 @@ runs:
       shell: bash
       run: |
         which python
+        which pip
         python -m pip install --no-cache-dir deptry
         deptry ${{ inputs.source-folder }}
