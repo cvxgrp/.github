@@ -14,26 +14,20 @@
 name: 'Age of Dependencies'
 description: 'Run a check on the age of dependencies'
 
-#inputs:
-#  source-folder:
-#    description: 'Source folder to analyze'
-#    required: false
-#    default: 'cvx'
-
 runs:
   using: "composite"
   steps:
-    - name: Update pip
-      shell: bash
-      run: |
-        # Ensure pip is installed and up-to-date
-        python -m ensurepip --upgrade
+    #- name: Update pip
+    #  shell: bash
+    #  run: |
+    #    # Ensure pip is installed and up-to-date
+    #    python -m ensurepip --upgrade
 
     - name: Install dependencies
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install toml requests packaging pandas
+        python -m pip install toml requests packaging pandas
         mkdir -p artifacts/age
 
     - name: Check dependency ages
