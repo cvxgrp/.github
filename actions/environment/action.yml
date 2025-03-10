@@ -93,3 +93,6 @@ runs:
       run : |
         cat requirements.txt
         uv pip install -r requirements.txt
+
+        # (Re)install pip if needed
+        uv pip install pip
