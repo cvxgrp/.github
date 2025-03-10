@@ -62,9 +62,11 @@ runs:
       run: |
         # Create virtual environment with uv
         uv venv --python ${{ inputs.python-version }}
+        # install pip
+        uv pip install pip
 
         # Ensure pip is installed and up-to-date in the virtual environment
-        python -m ensurepip --upgrade
+        #python -m ensurepip --upgrade
 
     - name: Check dependency file compatibility
       shell: bash
