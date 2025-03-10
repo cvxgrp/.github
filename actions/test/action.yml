@@ -33,5 +33,6 @@ runs:
     - name: Run tests
       shell: bash
       run: |
+        which python
         python -m pip install --no-cache-dir pytest
         pytest ${{ inputs.tests-folder }}
