@@ -94,6 +94,9 @@ runs:
             uv sync --all-extras --dev  # Install all dependencies (including dev dependencies)
         fi
 
+        # Reinstall pip if needed (since uv sync removes it)
+        uv pip install pip
+
     # run if the file pyproject.toml exists
     - name: Install the dependencies
       if: hashFiles('requirements.txt') != ''
