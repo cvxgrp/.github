@@ -32,11 +32,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Update pip
-      shell: bash
-      run: |
-        # Ensure pip is installed and up-to-date
-        python -m ensurepip --upgrade
+    #- name: Update pip
+    #  shell: bash
+    #  run: |
+    #    # Ensure pip is installed and up-to-date
+    #    python -m ensurepip --upgrade
 
     - name: Run tests with coverage
       shell: bash

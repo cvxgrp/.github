@@ -23,11 +23,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Update pip
-      shell: bash
-      run: |
-        # Ensure pip is installed and up-to-date
-        python -m ensurepip --upgrade
+    #- name: Update pip
+    #  shell: bash
+    #  run: |
+    #    # Ensure pip is installed and up-to-date
+    #    python -m ensurepip --upgrade
 
     - name: Install and run deptry
       shell: bash
