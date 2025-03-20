@@ -23,7 +23,7 @@ inputs:
     description: 'Extra options for deptry'
     required: false
     default: ''
-    
+
 runs:
   using: "composite"
   steps:
