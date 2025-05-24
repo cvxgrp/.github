@@ -1,4 +1,4 @@
-# [.github](https://docs.github.com/en/actions/using-workflows/creating-starter-workflows-for-your-organization#creating-a-starter-workflow)
+# 🔄 [.github](https://docs.github.com/en/actions/using-workflows/creating-starter-workflows-for-your-organization#creating-a-starter-workflow)
 
 [![Apache 2.0
 License](https://img.shields.io/badge/License-APACHEv2-brightgreen.svg)](LICENSE)
@@ -26,14 +26,14 @@ We have removed the poetry based action
 You have two options. You can either use cvxgrp/.github/actions/test@v1.4.0
 where all those actions are still present or move to uv.
 
-## uv
+## 🛠️ uv
 
 To take full advantage of the actions given here we recommend using
 [uv](https://github.com/astral-sh/uv). uv is a modern package manager for Python.
 It allows to create and manage virtual environments.
 A more dated alternative is [poetry](https://python-poetry.org/).
 
-## Action workflows
+## 🔄 Action workflows
 
 Github workflows can help to robustify and to automate
 the process of creating software and documents.
@@ -41,18 +41,18 @@ We recommend [Github introduction](https://docs.github.com/actions).
 
 We list two example actions created for cvxgrp:
 
-### [latex](https://github.com/cvxgrp/.github/blob/main/actions/latex/action.yml)
+### 📄 [latex](https://github.com/cvxgrp/.github/blob/main/actions/latex/action.yml)
 
 This workflow is used to compile *.tex files.
 It uploads the generated documents to the draft branch.
 
-### [test](https://github.com/cvxgrp/.github/blob/main/actions/test/action.yml)
+### 🧪 [test](https://github.com/cvxgrp/.github/blob/main/actions/test/action.yml)
 
 This workflow install pytest and some its friends.
 It uploads the test results as artifacts.
 It assumes the project is built with poetry.
 
-## Using workflows
+## 📋 Using workflows
 
 Creating workflows for your own repository is simple.
 Please follow:
