@@ -1,10 +1,16 @@
 name: Bump version and publish
 
+# This workflow creates a new version tag for the repository
+# It runs only when manually triggered via the GitHub Actions interface
+# The workflow generates a new tag based on the repository's version information
+
 on:
   workflow_dispatch:
 
 
 jobs:
+  # Creates a new version tag for the repository
+  # Requires write permissions to create tags in the repository
   tag:
     permissions:
       contents: write

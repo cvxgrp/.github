@@ -1,9 +1,15 @@
 name: LATEX
 
+# This workflow compiles LaTeX documents in the repository
+# It runs automatically on every push to the repository
+# The workflow builds the specified LaTeX file and can optionally create releases or upload artifacts
+
 on:
   push
 
 jobs:
+  # Builds the LaTeX paper specified in the workflow configuration
+  # Requires write permissions to publish the compiled document
   build_paper:
     runs-on: ubuntu-latest
 

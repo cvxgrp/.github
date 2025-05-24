@@ -1,9 +1,14 @@
 name: BOOK
 
+# This workflow builds and publishes documentation for the repository
+# It runs automatically on every push to the repository
+# The workflow includes multiple documentation generation jobs and combines them into a final book
+
 on:
   push:
 
 jobs:
+    # Generates interactive Marimo notebooks for documentation
     marimo:
       runs-on: "ubuntu-latest"
 
@@ -15,6 +20,7 @@ jobs:
 
         - uses: ./actions/marimo
 
+    # Generates API documentation using pdoc
     pdoc:
       runs-on: "ubuntu-latest"
       steps:
@@ -25,6 +31,7 @@ jobs:
 
         - uses: ./actions/pdoc
 
+    # Checks the age of the repository and its files
     age:
       runs-on: "ubuntu-latest"
       steps:
@@ -33,6 +40,7 @@ jobs:
 
         - uses: ./actions/age
 
+    # Builds Sphinx documentation from the specified folder
     sphinx:
       runs-on: "ubuntu-latest"
       steps:
@@ -45,6 +53,7 @@ jobs:
           with:
             sphinx-folder: 'book/sphinx'
 
+    # Runs tests and generates coverage reports
     test:
       runs-on: "ubuntu-latest"
       steps:
@@ -58,6 +67,7 @@ jobs:
             coveralls: 'false'
             tests-folder: 'src/tests'
 
+    # Processes Jupyter notebooks for documentation
     jupyter:
       runs-on: "ubuntu-latest"
       steps:
@@ -68,6 +78,8 @@ jobs:
 
         - uses: ./actions/jupyter
 
+    # Combines all documentation outputs into a final book
+    # This job only runs after all other jobs have completed successfully
     book:
       runs-on: "ubuntu-latest"
       needs: [test, pdoc, sphinx, jupyter, marimo, age]
