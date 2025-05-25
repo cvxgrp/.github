@@ -1,19 +1,33 @@
-# 🔄 [.github](https://docs.github.com/en/actions/using-workflows/creating-starter-workflows-for-your-organization#creating-a-starter-workflow)
+# 🔄 GitHub Workflows for cvxgrp
 
-[![Apache 2.0
-License](https://img.shields.io/badge/License-APACHEv2-brightgreen.svg)](LICENSE)
+[![Apache 2.0 License](https://img.shields.io/badge/License-APACHEv2-brightgreen.svg)](LICENSE)
 
-Reusable workflows (not only) for cvxgrp
+A collection of reusable GitHub Actions workflows and configurations
+for the cvxgrp organization and beyond.
 
-## :warning: Private repositories
+## 📋 Overview
+
+This repository contains standardized GitHub Actions workflows
+that can be reused across multiple projects.
+These workflows help automate common tasks such as:
+
+- 🧪 Running tests and generating coverage reports
+- 📄 Building LaTeX documents
+- 📚 Generating documentation
+- 🔍 Code quality checks and linting
+- 📦 Building and publishing packages
+
+## ⚠️ Important Notes
+
+### 🔒 Private Repositories
 
 Be careful when using actions in private repositories.
 The group has a limited number of minutes per month.
 In public repositories, actions are free.
 
-## :warning: Removed actions
+### 🚫 Removed Actions
 
-We have removed the poetry based action
+We have removed the poetry-based actions:
 
 - actions/test@main
 - actions/sphinx@main
@@ -23,44 +37,58 @@ We have removed the poetry based action
 - actions/coverage@main
 - actions/book@main
 
-You have two options. You can either use cvxgrp/.github/actions/test@v1.4.0
-where all those actions are still present or move to uv.
+You have two options:
 
-## 🛠️ uv
+1. Use cvxgrp/.github/actions/test@v1.4.0 where all those
+actions are still present
+2. Move to uv (recommended)
 
-To take full advantage of the actions given here we recommend using
-[uv](https://github.com/astral-sh/uv). uv is a modern package manager for Python.
-It allows to create and manage virtual environments.
+## 🛠️ Package Management
+
+### uv
+
+To take full advantage of the actions provided here,
+we recommend using [uv](https://github.com/astral-sh/uv).
+uv is a modern package manager for Python that allows you
+to create and manage virtual environments efficiently.
+
 A more dated alternative is [poetry](https://python-poetry.org/).
 
-## 🔄 Action workflows
+## 🔄 Available Workflows
 
-Github workflows can help to robustify and to automate
-the process of creating software and documents.
-We recommend [Github introduction](https://docs.github.com/actions).
+GitHub workflows help robustify and automate the process
+of creating software and documents. We recommend
+reading the [GitHub Actions introduction](https://docs.github.com/actions)
+for more information.
 
-We list two example actions created for cvxgrp:
+Here are some example actions created for cvxgrp:
 
 ### 📄 [latex](https://github.com/cvxgrp/.github/blob/main/actions/latex/action.yml)
 
-This workflow is used to compile *.tex files.
-It uploads the generated documents to the draft branch.
+This workflow compiles *.tex files and uploads the generated documents
+to the draft branch.
 
 ### 🧪 [test](https://github.com/cvxgrp/.github/blob/main/actions/test/action.yml)
 
-This workflow install pytest and some its friends.
-It uploads the test results as artifacts.
-It assumes the project is built with poetry.
+This workflow installs pytest and related packages, runs tests,
+and uploads the test results as artifacts.
 
-## 📋 Using workflows
+### 📚 [book](https://github.com/cvxgrp/.github/blob/main/actions/book/action.yml)
 
-Creating workflows for your own repository is simple.
-Please follow:
+This workflow builds and publishes documentation for your
+repository.
 
-- Create the '.github/workflows' folder.
+### 🔍 [pre-commit](https://github.com/cvxgrp/.github/blob/main/actions/pre-commit/action.yml)
 
-In this folder create a yml file with the name of the workflow
-you want to use, e.g. basic.yml.
+This workflow runs code quality checks and linting on your codebase.
+
+## 📋 Using Workflows
+
+Creating workflows for your own repository is simple:
+
+1. Create the `.github/workflows` folder in your repository
+2. Create a YAML file with the name of the workflow you want to use (e.g., `basic.yml`)
+3. Define your workflow using the example below:
 
 ```yaml
 name: "basic"
@@ -71,12 +99,8 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-
     steps:
-      pre-commit:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: cvxgrp/.github/actions/pre-commit@v2.2.4
+      - uses: cvxgrp/.github/actions/pre-commit@v2.2.4
 
   test:
     runs-on: ubuntu-latest
@@ -90,29 +114,30 @@ jobs:
 ```
 
 Every push to the repository will trigger the workflow.
-It will run all jobs in the workflow.
-There are two jobs defined here: pre-commit and test.
-Both these jobs run on a ubuntu machine.
-Each job consists of at least one step.
-The steps are the actions that will be executed.
+It will run all jobs defined in the workflow:
 
-In the test job we run the cvxgrp action building a
-virtual environment before performing all tests
-and measuring test coverage.
+- The `pre-commit` job runs code quality checks
+- The `test` job builds a virtual environment, runs tests, and measures test coverage
 
-There are many more examples of such workflow files in the repositories:
+## 📊 Examples
+
+There are many examples of workflow files in these repositories:
 
 - [cvxmarkowitz](https://github.com/cvxgrp/cvxmarkowitz/tree/main/.github/workflows)
 - [cvxsimulator](https://github.com/cvxgrp/simulator/tree/main/.github/workflows)
 
 Note the strong overlap between both projects.
-The jobs are essentially all the same.
-Rather than coding the same workflow twice we point from both places to the actions
-defined here.
+Rather than coding the same workflow twice,
+repositories point to the actions defined here.
 
-For a paper repository we use the LaTeX workflow. For an example
+For a paper repository, we use the LaTeX workflow. For example:
 
 - [cov_pred_finance](https://github.com/cvxgrp/cov_pred_finance_paper/tree/main/.github/workflows)
 
-All paper repos tend to be private and are hence only
-visible to members of the group.
+Note that paper repositories tend to be private and are hence
+only visible to members of the group.
+
+## 🤝 Contributing
+
+Contributions to improve these workflows are welcome.
+Please feel free to submit issues or pull requests.

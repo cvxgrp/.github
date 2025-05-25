@@ -1,9 +1,15 @@
 name: "test"
 
+# This workflow runs continuous integration tests across multiple platforms and Python versions
+# It runs automatically on every push to the repository
+# The workflow ensures the code works consistently across different environments
+
 on:
 - push
 
 jobs:
+  # Tests the code on multiple operating systems and Python versions
+  # The job must pass on all combinations to ensure cross-platform compatibility
   test:
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
