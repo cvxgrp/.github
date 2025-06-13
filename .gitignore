@@ -2,3 +2,5 @@
 .task
 
 .DS_Store
+__pycache__
+__marimo__
