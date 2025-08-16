@@ -1,2 +1,2 @@
 Dependency Age Report (sorted by date, newest first):
-pandas (latest: 2.3.0) - Last updated: 2025-06-05
+pandas (latest: 2.3.1) - Last updated: 2025-07-07

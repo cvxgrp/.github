@@ -1,2 +1,2 @@
 Dependency Age Report:
-pandas (latest: 2.3.0) - Last updated: 2025-06-05T03:27:54
+pandas (latest: 2.3.1) - Last updated: 2025-07-07T19:20:04
