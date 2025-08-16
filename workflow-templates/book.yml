@@ -9,17 +9,6 @@ on:
 
 
 jobs:
-  # Builds Sphinx documentation from the specified folder
-  sphinx:
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: "Build the virtual environment for ${{ github.repository }}"
-        uses: cvxgrp/.github/actions/environment@v2.2.8
-
-      - uses: cvxgrp/.github/actions/sphinx@v2.2.8
-        with:
-          source-folder: 'src/cvx'
-
   # Runs tests and generates coverage reports
   test:
     runs-on: "ubuntu-latest"
@@ -67,7 +56,7 @@ jobs:
   # This job only runs after all other jobs have completed successfully
   book:
     runs-on: "ubuntu-latest"
-    needs: [test, sphinx, jupyter, pdoc, marimo]
+    needs: [test, jupyter, pdoc, marimo]
 
     permissions:
       contents: write
