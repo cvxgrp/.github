@@ -23,7 +23,7 @@ runs:
 
   steps:
     - name: Checkout [${{ github.repository }}]
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Download all artifacts
       if: ${{ env.ACT != 'true' }}  # Skip if running with 'act'
